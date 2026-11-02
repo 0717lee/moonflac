@@ -50,6 +50,7 @@ moon test --target native
 moon build --target native
 moon run examples/stream --target native
 moon run examples/encode --target native
+moon run examples/ogg --target native
 ```
 
 ```sh
@@ -75,7 +76,7 @@ node playground/serve.mjs
 |---|---|
 | 以 MoonBit 为主要实现语言 | 根库、CLI、浏览器桥接和 Ogg 封装均为 MoonBit；核心无 FFI |
 | 仓库公开、提交可追踪 | GitHub 公开仓库；本期新增以独立提交记录，保留 Issue/PR 入口 |
-| 清晰 README、可运行示例、必要测试 | 英文/中文 README、`examples/stream`、`examples/encode`、196 个项目测试、CLI 合同测试 |
+| 清晰 README、可运行示例、必要测试 | 英文/中文 README、`examples/stream`、`examples/encode`、`examples/ogg`、196 个项目测试、CLI 合同测试 |
 | 已有项目包含本期实质新增 | Ogg FLAC 输出 API + CLI + 跨页帧处理 + 独立 libFLAC 验证 |
 | 开源合规、说明参考来源 | Apache-2.0；`THIRD_PARTY.md`；RFC 9639；libFLAC 仅用于外部验证 |
 | 可解释、可维护 | `docs/SPEC-MATRIX.md`、`docs/ACCEPTANCE.md`、`docs/API.md`、`docs/CONTEST.md` |

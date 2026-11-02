@@ -37,6 +37,7 @@ jobs:
             moon build --target "$target"
             moon run examples/stream --target "$target"
             moon run examples/encode --target "$target"
+            moon run examples/ogg --target "$target"
           done
       - name: Compare generated integer PCM against libFLAC
         run: |

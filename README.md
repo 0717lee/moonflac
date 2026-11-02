@@ -47,6 +47,7 @@ moon check --target wasm-gc
 moon test --target wasm-gc
 moon build --target wasm-gc
 moon run examples/stream --target native
+moon run examples/ogg --target native
 ```
 
 The root library has no platform FFI. The CLI is native; the browser bridge targets JavaScript and wasm-gc. Target-specific packages are excluded from incompatible builds. CI configuration is provided in `.github/workflows/ci.yml`; a local passing run is not a claim that remote CI has run.
@@ -83,7 +84,7 @@ moonflac ogg recording.flac recording.oga
 moonflac info recording.oga
 ```
 
-The `ogg` command stages its native input in memory, so the CLI is intended for ordinary files rather than multi-gigabyte recordings. Use the library's native encoder plus a streaming consumer when the input itself cannot be held in memory. `--serial HEX` overrides the default logical-stream serial number `0x4d464c43`.
+The `ogg` command stages its native input in memory, so the CLI is intended for ordinary files rather than multi-gigabyte recordings. Use the library's native encoder plus a streaming consumer when the input itself cannot be held in memory. `--serial HEX` overrides the default logical-stream serial number `0x4d464c43`. [`examples/ogg`](examples/ogg/main.mbt) is a three-target PCM-to-Ogg round trip.
 
 ## Library and streaming
 
