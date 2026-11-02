@@ -27,7 +27,6 @@ _tmp_*
 /validation/benchmark_compete/
 /validation/fixtures/
 /validation/libflac_core/
-/validation/review_raw/
 /cmd/benchmark*.py
 /scripts/*
 !/scripts/validate.py
