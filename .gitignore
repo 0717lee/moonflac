@@ -13,3 +13,26 @@ _tmp_*
 !/validation/evidence/README.md
 !/validation/evidence/2026-11-02-ogg-mux/
 !/validation/evidence/2026-11-02-ogg-mux/**
+
+# Historical performance snapshots and one-off benchmark scripts stay local.
+# The public tree keeps the current source, tests, examples and validation entry points.
+/docs/ENCODER-PROPOSAL.md
+/docs/PERFORMANCE-EVIDENCE.md
+/docs/PERFORMANCE.md
+/docs/REVIEW-FIXES.md
+/docs/SPEED-FIRST-EVIDENCE.md
+/validation/baselines/
+/validation/benchmark/
+/validation/benchmark8/
+/validation/benchmark_compete/
+/validation/fixtures/
+/validation/libflac_core/
+/validation/review_raw/
+/cmd/benchmark*.py
+/scripts/*
+!/scripts/validate.py
+!/scripts/fetch-corpus.py
+!/scripts/prepare-validation.ps1
+!/scripts/generate-golden.py
+!/scripts/check-faulty.py
+!/scripts/validate_encoder.py
