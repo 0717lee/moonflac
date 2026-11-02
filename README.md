@@ -136,7 +136,7 @@ Current Ogg-output increment (2026-11-02): native, JavaScript and wasm-gc each p
 
 This is a FLAC codec and integration toolkit. The encoder writes native FLAC and can mux completed native frames into Ogg FLAC; Ogg output is one logical stream per call, and the CLI stages its input in memory. MP4/Matroska demuxing, unrelated codecs, browser audio editing/AudioWorklet playback and operating-system playback backends are outside its scope. These exclusions do not remove FLAC frame coding features. Container-specific random access for Ogg uses sequential demultiplexing; native input supports reusable byte indexes. Resource limits are explicit errors and can be raised for unusually large valid data.
 
-Apache-2.0. See [LICENSE](LICENSE) and [third-party provenance](THIRD_PARTY.md). This checkout is prepared for publication; publication is a separate action.
+Apache-2.0. See [LICENSE](LICENSE) and [third-party provenance](THIRD_PARTY.md). This checkout is the public submission; the repository and CI record are linked from [HACKATHON.md](HACKATHON.md).
 
 The subsequent effort-8 follow-up reduces fixed-set median totals by **51.6% core / 51.8% CLI**, with byte-identical output and 103/103 tests on each backend on Windows and WSL2. These are bounded local results; independent review passed, silence/maximum-block cases show no resolved benefit, and high effort remains slower than libFLAC. See [the paired results and reference limitations](docs/PERFORMANCE.md#high-effort-optimization-follow-up-independently-passed).
 

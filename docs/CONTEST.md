@@ -1,6 +1,6 @@
 # MoonFLAC competition walkthrough / 比赛验收
 
-MoonFLAC is the November project: a new pure MoonBit FLAC codec library and its tools. The core is independent of the neighboring PixelForge, MoonHostABI and MoonAV1 projects. The deliverable is a local publication-ready checkout; no remote repository, release or deployment is implied.
+MoonFLAC is the November project: a new pure MoonBit FLAC codec library and its tools. The core is independent of the neighboring PixelForge, MoonHostABI and MoonAV1 projects. This checkout is the public submission for the 2026 MoonBit Hackathon; the repository, CI run and remaining registration steps are recorded in [HACKATHON.md](../HACKATHON.md).
 
 ## Demonstration sequence
 
@@ -42,4 +42,4 @@ Historical implicit variable-block streams are compatibility input described by 
 
 新增编码器已完成原始 PCM → MoonBit 编码 → libFLAC 独立解码验收：328 个格式/信号/片段案例、三个后端共 828 条流，以及全部 75 个有效公共文件的完整 PCM（84 条同格式输出流，50,363,649 个样本帧）均逐样本一致；327 个音频案例还经过 FFmpeg 对照。137 种写出表示由官方工具独立解码与分析。当前 Windows 与 WSL2 三个后端各 99/99 测试通过；effort 压缩率/性能、任意分块、有界暂存、最大块和头部最终化的证据均见编码器台账。性能加固还实际处理并导出了超过 4 GiB 的 RF64 PCM，完成小时级高 effort 多声道长流和 30 分钟差分压力；最终独立审核状态见 ACCEPTANCE.md。前述历史基线与本轮证据分别保留。
 
-当前工作均留在本地。发布、push、PR 或部署不属于本次验收执行；可以审阅项目文件与结果后再安排。
+公开仓库、CI 和 PR 记录已建立，作为 2026 MoonBit 黑客松的提交基线；生产部署仍不属于本次验收执行。

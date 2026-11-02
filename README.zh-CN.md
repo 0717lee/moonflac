@@ -107,7 +107,7 @@ Ubuntu 安装 `flac libflac-dev`，Windows 使用 `scripts/prepare-validation.ps
 
 编码器输出原生 FLAC，并可把已完成的原生帧封装为 Ogg FLAC；每次调用输出一个逻辑流，CLI 当前会把输入整体读入内存。其他音频编码、MP4/Matroska 容器、浏览器音频编辑/AudioWorklet 播放及系统播放器后端不在范围内。原生输入支持可复用字节索引；Ogg 区间导出顺序解复用。这些容器/应用边界不删减 FLAC 帧编码能力。异常大的合法输入可提高资源限制，触限时明确报错。
 
-Apache-2.0，见 [许可证](LICENSE) 和 [第三方来源](THIRD_PARTY.md)。当前交付保留本地；发布需另行执行。
+Apache-2.0，见 [许可证](LICENSE) 和 [第三方来源](THIRD_PARTY.md)。当前检出即公开提交版本；仓库与 CI 记录见 [HACKATHON.md](HACKATHON.md)。
 
 后续 effort-8 优化的固定集合中位耗时合计下降 **核心51.6% / CLI 51.8%**，输出位流不变；Windows 与 WSL2 三后端各103/103通过。本轮本地验证及独立审核均已通过。静音和最大块未显示明确收益，高 effort 仍慢于 libFLAC；详见[配对测量及参考工具限制](docs/PERFORMANCE.md)。
 

@@ -1,6 +1,6 @@
 # MoonFLAC · 2026 MoonBit 黑客松项目说明
 
-> 提交状态（2026-11-02）：公开仓库已上线，GitHub Actions 干净环境通过（[run 41393189653](https://github.com/0717lee/moonflac/actions/runs/41393189653)）；报名表与赛事群需要参赛者本人完成。官网当前仍显示“十月赛，10 月 31 日截止”，下一赛期以官方页面/赛事群通知为准。本文按“已有项目实质新增”准备；若官方将首次公开申报视为新项目，则按新项目填写，不重复提交。
+> 提交状态（2026-11-02）：公开仓库已上线，GitHub Actions 干净环境通过（[CI workflow](https://github.com/0717lee/moonflac/actions/workflows/ci.yml)）；报名表与赛事群需要参赛者本人完成。官网当前仍显示“十月赛，10 月 31 日截止”，下一赛期以官方页面/赛事群通知为准。本文按“已有项目实质新增”准备；若官方将首次公开申报视为新项目，则按新项目填写，不重复提交。
 
 ## 一句话
 
@@ -95,6 +95,8 @@ node playground/serve.mjs
 
 - [x] 公开仓库：<https://github.com/0717lee/moonflac>，Apache-2.0，README/测试/演示可从干净 clone 复现。
 - [x] 干净环境 CI：三后端 check/test/build、libFLAC 对照、CLI 合同测试和浏览器构建通过。
+- [x] 可追踪评审记录：公开 PR <https://github.com/0717lee/moonflac/pull/1>。
+- [x] 干净 clone 复核：native/JS/wasm-gc 各 196/196，CLI 合同测试通过。
 - [x] 一页项目说明：本文件；技术细节见 `docs/ACCEPTANCE.md`、`docs/SPEC-MATRIX.md` 和 `docs/API.md`。
 - [x] 本期实质新增：Ogg FLAC 输出、CLI `ogg`、跨页帧处理与独立 libFLAC 验证。
 - [ ] 在官方报名表填写项目信息、GitHub ID、仓库地址和一页说明（可直接使用本文件）。
