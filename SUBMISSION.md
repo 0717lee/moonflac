@@ -53,6 +53,7 @@ flac -t output.oga
 - 本期 Ogg 收据：`validation/evidence/2026-11-02-ogg-mux/README.md`
 - CI：<https://github.com/0717lee/moonflac/actions/workflows/ci.yml>
 - PR 记录：<https://github.com/0717lee/moonflac/pull/1>
+- 提交事项跟踪：<https://github.com/0717lee/moonflac/issues/3>
 
 ## 仍需本人完成
 

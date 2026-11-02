@@ -99,6 +99,7 @@ node playground/serve.mjs
 - [x] 公开仓库：<https://github.com/0717lee/moonflac>，Apache-2.0，README/测试/演示可从干净 clone 复现。
 - [x] 干净环境 CI：三后端 check/test/build、libFLAC 对照、CLI 合同测试和浏览器构建通过。
 - [x] 可追踪评审记录：公开 PR <https://github.com/0717lee/moonflac/pull/1>。
+- [x] 提交事项跟踪：公开 Issue <https://github.com/0717lee/moonflac/issues/3>。
 - [x] 干净 clone 复核：native/JS/wasm-gc 各 196/196，CLI 合同测试通过。
 - [x] 一页项目说明：本文件；技术细节见 `docs/ACCEPTANCE.md`、`docs/SPEC-MATRIX.md` 和 `docs/API.md`。
 - [x] 本期实质新增：Ogg FLAC 输出、CLI `ogg`、跨页帧处理与独立 libFLAC 验证。
