@@ -12,7 +12,7 @@ sys.path.insert(0, str(root / 'scripts'))
 from validate import LibFLAC, library
 
 ref = LibFLAC(library(None))
-previous = Path(r'C:\Users\谦友Lee\AppData\Local\Temp\moonflac-speed-review-pnpe94pa')
+previous = Path(sys.argv[2]) if len(sys.argv) > 2 else out / 'previous'
 fresh = out / 'build/native/release/build/cmd/moonflac/moonflac.exe'
 flac = root / 'validation/cache/libflac/flac-1.5.0-win/Win64/flac.exe'
 work = out / 'fixtures'
