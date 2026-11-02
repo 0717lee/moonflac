@@ -2,6 +2,8 @@
 
 > 提交状态（2026-11-02）：公开仓库已上线，GitHub Actions 干净环境通过（[CI workflow](https://github.com/0717lee/moonflac/actions/workflows/ci.yml)）；报名表与赛事群需要参赛者本人完成。官网当前仍显示“十月赛，10 月 31 日截止”，下一赛期以官方页面/赛事群通知为准。本文按“已有项目实质新增”准备；若官方将首次公开申报视为新项目，则按新项目填写，不重复提交。
 
+报名表可直接复制 [SUBMISSION.md](SUBMISSION.md) 中的短版/长版字段。
+
 ## 一句话
 
 MoonFLAC 是纯 MoonBit 实现的 FLAC 无损编解码库：同一套代码运行在 native、JavaScript 和 WebAssembly GC，覆盖解码、编码、Ogg 封装、流式处理、精确裁剪、CLI 和浏览器播放器，核心不依赖 libFLAC、FFmpeg、FFI 或浏览器内建音频解码器。
