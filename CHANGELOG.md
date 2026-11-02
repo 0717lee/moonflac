@@ -6,13 +6,13 @@
 
 - Ogg FLAC output: `ogg_from_flac` converts a validated native FLAC stream into one Ogg logical stream while preserving STREAMINFO and metadata.
 - `encode_ogg_pcm` whole-buffer PCM-to-Ogg convenience path.
-- Native CLI command `moonflac ogg INPUT OUTPUT [--serial HEX]`.
+- Native CLI command `moonflac ogg INPUT OUTPUT [--serial HEX] [--vendor NAME]`.
 - Ogg page CRC, sequence, continuation, granule and EOS handling, including frames larger than one page.
-- Three Ogg mux tests and a CLI contract test that verifies the output with independent libFLAC.
+- Four Ogg mux tests and a CLI contract test that verifies the output with independent libFLAC.
 
 ### Validation
 
-- Native, JavaScript and wasm-gc: 196/196 project tests each.
+- Native, JavaScript and wasm-gc: 197/197 project tests each.
 - libFLAC 1.5.0 accepted Ogg outputs; decoded PCM matched source byte-for-byte for 16/24/32-bit and 2/6/8-channel fixtures.
 - Existing decoder, encoder, CLI, browser and long-stream evidence is unchanged and remains described in `docs/ACCEPTANCE.md`.
 

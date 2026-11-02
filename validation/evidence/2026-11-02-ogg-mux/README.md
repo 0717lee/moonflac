@@ -32,8 +32,8 @@ python cmd/test_cli.py \
 
 ## Observed results
 
-- `moon test` on native, JavaScript and wasm-gc: **196/196 passed, 0 failed** on each target.
-- The three new tests cover metadata/PCM round-trip, a frame larger than one Ogg page, and rejection of non-FLAC input.
+- `moon test` on native, JavaScript and wasm-gc: **197/197 passed, 0 failed** on each target.
+- The four Ogg tests cover metadata/PCM round-trip, a frame larger than one Ogg page, custom serial/vendor options, and rejection of non-FLAC input.
 - libFLAC `-t` accepted all tested Ogg outputs.
 - Decoded PCM matched the independent source byte-for-byte:
 
@@ -44,7 +44,7 @@ python cmd/test_cli.py \
 | `depth-32-channels-8` | 68,292 | 67,744 | `24ff897e0c58598c7e349559b231fdf3f3145f0302f4127283129670fd47d4cf` |
 
 - `cmd/test_cli.py` passed all existing checks plus:
-  `"Ogg mux: libFLAC accepts output and decoded PCM matches source"`.
+  `"Ogg mux: libFLAC accepts output, PCM matches, serial/vendor options work"`.
   Its machine-readable receipt is `cli-contract.json`.
 - A 4-bit Ogg output passed `flac -t`; libFLAC's raw-output mode does not accept 4-bit samples, so no 4-bit byte comparison is claimed.
 
