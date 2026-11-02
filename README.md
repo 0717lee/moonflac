@@ -1,6 +1,6 @@
 # MoonFLAC
 
-[简体中文](README.zh-CN.md) · [API](docs/API.md) · [Acceptance matrix](docs/ACCEPTANCE.md) · [Competition walkthrough](docs/CONTEST.md) · [2026 Hackathon note](HACKATHON.md)
+[简体中文](README.zh-CN.md) · [API](docs/API.md) · [Acceptance matrix](docs/ACCEPTANCE.md) · [Competition walkthrough](docs/CONTEST.md) · [2026 Hackathon note](HACKATHON.md) · [CI](https://github.com/0717lee/moonflac/actions/workflows/ci.yml)
 
 > **2026 MoonBit Hackathon:** one-page project description and the current submission boundary are in [HACKATHON.md](HACKATHON.md). The public repository is the submission record; the codec itself remains a reusable MoonBit library.
 
