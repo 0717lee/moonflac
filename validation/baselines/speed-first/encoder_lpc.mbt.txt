@@ -1,0 +1,149 @@
+///|
+/// Integer predictor candidate. Analysis is approximate; the encoder must
+/// validate every exact residual and compare its actual encoded cost.
+priv struct LpcModel {
+  coefficients : Array[Int64]
+  shift : Int
+  precision : Int
+}
+
+///|
+/// Quantize with error feedback and a nonnegative legal FLAC shift. Reducing
+/// the shift handles a coefficient rounding onto the signed positive bound.
+fn encoder_lpc_quantize(
+  coefficients : Array[Double],
+  precision : Int,
+) -> LpcModel? {
+  let bound = 1L << (precision - 1)
+  for shift = 15; shift >= 0; shift = shift - 1 {
+    let scale = (1L << shift).to_double()
+    let quantized : Array[Int64] = []
+    let mut error = 0.0
+    let mut valid = true
+    for coefficient in coefficients {
+      let value = coefficient * scale + error
+      if value.is_nan() ||
+        value.is_inf() ||
+        value < -bound.to_double() - 1.0 ||
+        value > bound.to_double() {
+        valid = false
+        break
+      }
+      // Explicit round-away-from-zero avoids backend-specific halfway rules.
+      let rounded = (if value >= 0.0 { value + 0.5 } else { value - 0.5 }).to_int64()
+      if rounded < -bound || rounded >= bound {
+        valid = false
+        break
+      }
+      quantized.push(rounded)
+      error = value - rounded.to_double()
+    }
+    if valid {
+      let mut actual_precision = 1
+      for coefficient in quantized {
+        while actual_precision < 15 &&
+              (
+                coefficient < -(1L << (actual_precision - 1)) ||
+                coefficient >= 1L << (actual_precision - 1)
+              ) {
+          actual_precision += 1
+        }
+      }
+      return Some({
+        coefficients: quantized,
+        shift,
+        precision: actual_precision,
+      })
+    }
+  }
+  None
+}
+
+///|
+/// Normalized autocorrelation and Levinson-Durbin produce candidates for
+/// orders 1..min(max_order,32,n-1). A Welch window reduces boundary bias.
+/// Floating point only chooses candidates: it never determines reconstructed
+/// PCM. Zero energy or unstable analysis returns the stable models collected
+/// so far; the encoder can select another predictor or verbatim coding.
+/// Two bounded quantization budgets (12 and 15 bits) are considered per order,
+/// in deterministic order, with identical quantized candidates deduplicated.
+fn encoder_lpc_models(
+  samples : Array[Int64],
+  max_order : Int,
+) -> Array[LpcModel] {
+  let models : Array[LpcModel] = []
+  if samples.length() < 2 || max_order < 1 {
+    return models
+  }
+  let limit = if max_order > 32 { 32 } else { max_order }
+  let order_limit = if limit >= samples.length() {
+    samples.length() - 1
+  } else {
+    limit
+  }
+  let mut peak = 0.0
+  for sample in samples {
+    let magnitude = sample.to_double().abs()
+    if magnitude > peak {
+      peak = magnitude
+    }
+  }
+  if peak == 0.0 {
+    return models
+  }
+  let n = samples.length()
+  let signal = Array::makei(n, i => {
+    // Half-sample endpoints keep even a two-sample input observable.
+    let position = (2.0 * i.to_double() + 1.0) / n.to_double() - 1.0
+    samples[i].to_double() / peak * (1.0 - position * position)
+  })
+  let correlation = Array::make(order_limit + 1, 0.0)
+  for lag in 0..<=order_limit {
+    let mut sum = 0.0
+    for i = lag; i < n; i = i + 1 {
+      sum += signal[i] * signal[i - lag]
+    }
+    correlation[lag] = sum
+  }
+  let mut error = correlation[0]
+  if error <= 0.0 || error.is_nan() || error.is_inf() {
+    return models
+  }
+  let mut coefficients : Array[Double] = []
+  for order in 1..<=order_limit {
+    let mut numerator = correlation[order]
+    for j in 1..<order {
+      numerator -= coefficients[j - 1] * correlation[order - j]
+    }
+    let reflection = numerator / error
+    if reflection.is_nan() || reflection.is_inf() || reflection.abs() >= 1.0 {
+      break
+    }
+    let next = Array::makei(order, j => {
+      if j == order - 1 {
+        reflection
+      } else {
+        coefficients[j] - reflection * coefficients[order - j - 2]
+      }
+    })
+    coefficients = next
+    for precision in [12, 15] {
+      if encoder_lpc_quantize(coefficients, precision) is Some(model) {
+        let duplicate = match models.last() {
+          Some(previous) =>
+            previous.shift == model.shift &&
+            previous.coefficients == model.coefficients
+          None => false
+        }
+        if !duplicate {
+          models.push(model)
+        }
+      }
+    }
+    error *= 1.0 - reflection * reflection
+    if error <= correlation[0] * 1.0e-14 {
+      break
+    }
+  }
+  models
+}

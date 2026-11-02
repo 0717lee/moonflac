@@ -1,0 +1,6 @@
+import {
+  "0717lee/moonflac" @flac,
+  "moonbitlang/core/buffer",
+}
+
+pkgtype(kind: "executable")

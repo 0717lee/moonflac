@@ -1,0 +1,372 @@
+[
+  {
+    "case": "tail-4096-255",
+    "channels": [
+      {
+        "channel": 0,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 19049,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24684,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2391,
+        "fixed2_full": {
+          "bits": 24284,
+          "partition": 10,
+          "rice2": false
+        },
+        "baseline_lpc1_zero_coefficients_full": {
+          "bits": 18985,
+          "partition": 10
+        }
+      },
+      {
+        "channel": 1,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18955,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24361,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24190,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 2,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18956,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24362,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2390,
+        "fixed2_full": {
+          "bits": 24197,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 3,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18957,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24363,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24166,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 4,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18958,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24363,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24180,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 5,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 19050,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24685,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2390,
+        "fixed2_full": {
+          "bits": 24403,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 6,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18955,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24361,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2391,
+        "fixed2_full": {
+          "bits": 24170,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 7,
+        "fixed0_zero_count": 813,
+        "fixed0_nonzero_count": 3283,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18956,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24361,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24184,
+          "partition": 10,
+          "rice2": false
+        }
+      }
+    ]
+  },
+  {
+    "case": "tail-4096-256",
+    "channels": [
+      {
+        "channel": 0,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 19049,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24684,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2391,
+        "fixed2_full": {
+          "bits": 24260,
+          "partition": 10,
+          "rice2": false
+        },
+        "baseline_lpc1_zero_coefficients_full": {
+          "bits": 18985,
+          "partition": 10
+        }
+      },
+      {
+        "channel": 1,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18955,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24361,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24206,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 2,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18956,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24362,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2390,
+        "fixed2_full": {
+          "bits": 24197,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 3,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18957,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24363,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24198,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 4,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18958,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24363,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24196,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 5,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 19050,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24685,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2390,
+        "fixed2_full": {
+          "bits": 24375,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 6,
+        "fixed0_zero_count": 812,
+        "fixed0_nonzero_count": 3284,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18955,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24361,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2391,
+        "fixed2_full": {
+          "bits": 24206,
+          "partition": 10,
+          "rice2": false
+        }
+      },
+      {
+        "channel": 7,
+        "fixed0_zero_count": 813,
+        "fixed0_nonzero_count": 3283,
+        "sparsity_threshold": 3072,
+        "fixed0_full": {
+          "bits": 18956,
+          "partition": 10,
+          "rice2": false
+        },
+        "fixed0_cap8": {
+          "bits": 24361,
+          "partition": 8,
+          "rice2": true
+        },
+        "fixed2_zero_count": 2392,
+        "fixed2_full": {
+          "bits": 24204,
+          "partition": 10,
+          "rice2": false
+        }
+      }
+    ]
+  }
+]

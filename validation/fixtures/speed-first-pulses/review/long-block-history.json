@@ -1,0 +1,16 @@
+[
+  {
+    "name": "tail-4096-255",
+    "baseline_bytes": 24177,
+    "revision3_bytes": 29433,
+    "revision4_bytes": 29427,
+    "pcm_sha256": "1cec872a5e22bd51ac7f77c6dda441ad4bee0453ee56d47f0b6d75de18d9a013"
+  },
+  {
+    "name": "tail-4096-256",
+    "baseline_bytes": 20231,
+    "revision3_bytes": 25490,
+    "revision4_bytes": 25490,
+    "pcm_sha256": "3bac8c64770c482f5e0c17d1974b012a9bbadfecf3c52e18dc06c92da0bdf0ab"
+  }
+]

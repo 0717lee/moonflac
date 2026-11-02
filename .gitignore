@@ -1,0 +1,15 @@
+_build/
+.mooncakes/
+validation/cache/
+validation/results/
+playground/dist/
+__pycache__/
+*.pyc
+_tmp_*
+
+# Keep the public checkout lightweight. The full local evidence corpus stays
+# local; the README and the current increment receipt are the committed surface.
+/validation/evidence/*
+!/validation/evidence/README.md
+!/validation/evidence/2026-11-02-ogg-mux/
+!/validation/evidence/2026-11-02-ogg-mux/**

@@ -1,0 +1,88 @@
+// Speed-first search policy. Scores only rank candidates; exact integer
+// residuals and legal serialized costs still decide the emitted subframe.
+
+///|
+const ENCODER_LPC_SHORTLIST : Int = 4
+
+///|
+const ENCODER_LPC_PROBES : Int = 256
+
+///|
+const ENCODER_PARTITION_CAP : Int = 8
+
+///|
+fn encoder_sparse_partition_limit(
+  samples : Array[Int64],
+  predictor : Int,
+) -> Int {
+  if samples.length() % (1 << (ENCODER_PARTITION_CAP + 1)) != 0 {
+    return ENCODER_PARTITION_CAP
+  }
+  // Fine partitions can isolate rare, large impulses from runs of zeros.
+  // Keep all legal levels for sparse residuals. This is a search heuristic,
+  // not a promised compression-ratio bound for arbitrary PCM.
+  let maximum_nonzero = (samples.length() - predictor) * 3 / 4
+  let mut nonzero = 0
+  for i = predictor; i < samples.length(); i = i + 1 {
+    if samples[i] != 0L {
+      nonzero += 1
+      if nonzero > maximum_nonzero {
+        return ENCODER_PARTITION_CAP
+      }
+    }
+  }
+  15
+}
+
+///|
+fn encoder_lpc_shortlist(
+  samples : Array[Int64],
+  models : Array[LpcModel],
+  depth : Int,
+  limit? : Int = ENCODER_LPC_SHORTLIST,
+) -> Array[LpcModel] {
+  let selected : Array[LpcModel] = []
+  let scores : Array[Int64] = []
+  for model in models {
+    let order = model.coefficients.length()
+    let available = samples.length() - order
+    let probes = if available < ENCODER_LPC_PROBES {
+      available
+    } else {
+      ENCODER_LPC_PROBES
+    }
+    let mut sum = 0L
+    let mut valid = true
+    for j = 0; j < probes; j = j + 1 {
+      let i = order +
+        (if probes == 1 { 0 } else { j * (available - 1) / (probes - 1) })
+      let mut prediction = 0L
+      for k = 0; k < order; k = k + 1 {
+        prediction += model.coefficients[k] * samples[i - k - 1]
+      }
+      let residual = samples[i] - (prediction >> model.shift)
+      if residual <= -2147483648L || residual >= 2147483648L {
+        valid = false
+        break
+      }
+      sum += (encoder_signed_width(residual) + 1).to_int64()
+    }
+    if valid && probes > 0 {
+      let score = sum * available.to_int64() / probes.to_int64() +
+        (order * (depth + model.precision) + 9).to_int64()
+      let mut index = 0
+      while index < scores.length() && scores[index] <= score {
+        index += 1
+      }
+      if index < limit {
+        scores.insert(index, score)
+        selected.insert(index, model)
+        if scores.length() > limit {
+          scores.pop() |> ignore
+          selected.pop() |> ignore
+        }
+      }
+    }
+  }
+  selected
+}

@@ -1,0 +1,59 @@
+name: MoonFLAC validation
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install official MoonBit toolchain
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh -o /tmp/install-moonbit.sh
+          bash /tmp/install-moonbit.sh '0.10.16+b1a0e846e'
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+      - name: Install independent FLAC reference
+        run: sudo apt-get update && sudo apt-get install -y flac libflac-dev build-essential
+      - name: Record toolchain and resolve dependencies
+        run: |
+          moon version --all
+          flac --version
+          moon update
+      - name: Check formatting and all backends
+        run: |
+          moon fmt --check
+          for target in native js wasm-gc; do
+            moon check --target "$target"
+            moon test --target "$target"
+            moon build --target "$target"
+            moon run examples/stream --target "$target"
+            moon run examples/encode --target "$target"
+          done
+      - name: Compare generated integer PCM against libFLAC
+        run: |
+          python scripts/validate.py generate
+          cli=_build/native/debug/build/cmd/moonflac/moonflac.exe
+          if [ ! -f "$cli" ]; then cli=_build/native/debug/build/cmd/moonflac/moonflac; fi
+          python scripts/validate.py compare --cli "$cli" --corpus generated
+          python cmd/test_cli.py --cli "$cli" --flac "$(command -v flac)"
+          python cmd/test_encoder_cli.py --cli "$cli" --flac "$(command -v flac)"
+      - name: Build browser decoder
+        run: node playground/build.mjs
+      - name: Preserve oracle evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: oracle-results
+          path: |
+            validation/results/*.json
+            validation/cache/generated/manifest.json
+          if-no-files-found: warn

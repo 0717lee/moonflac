@@ -1,0 +1,17 @@
+{
+  "passed": [
+    "8-bit stereo: PCM, crop, WAV/libFLAC roundtrip, RF64, Ogg chain, truncation, same-path, range",
+    "16-bit stereo: PCM, crop, WAV/libFLAC roundtrip, RF64, Ogg chain, truncation, same-path, range",
+    "24-bit stereo: PCM, crop, WAV/libFLAC roundtrip, RF64, Ogg chain, truncation, same-path, range",
+    "32-bit stereo: PCM, crop, WAV/libFLAC roundtrip, RF64, Ogg chain, truncation, same-path, range",
+    "Ogg mux: libFLAC accepts output and decoded PCM matches source",
+    "8-bit mono: unsigned WAV conversion, odd data pad, exact RIFF size",
+    "channel layouts: side 5.1, partial mask, explicit zero, mixed-case tag, RF64, compatible/incompatible chains and cross-link crop"
+  ],
+  "exit_codes": [
+    0,
+    2,
+    3,
+    4
+  ]
+}

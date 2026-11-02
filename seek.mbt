@@ -1,0 +1,186 @@
+///|
+/// A verified native frame location. Offsets refer to the original input.
+pub(all) struct FrameLocation {
+  sample : Int64
+  offset : Int64
+  samples : Int32
+  bytes : Int32
+}
+
+///|
+/// Build once, reuse against the same immutable native FLAC input.
+pub(all) struct SeekIndex {
+  metadata : Metadata
+  frames : Array[FrameLocation]
+  total_samples : Int64
+  integrity : Integrity
+}
+
+///|
+/// Validate a native stream and retain frame locations, not decoded PCM.
+pub fn build_index(data : Bytes) -> SeekIndex raise FlacError {
+  if data.length() < 4 || data[:4] != b"fLaC" {
+    raise Invalid(0L, "frame byte index requires native FLAC input")
+  }
+  let decoder = Decoder::new()
+  let mut cursor = 0
+  let mut metadata = None
+  let frames = []
+  let mut total_samples = 0L
+  while true {
+    match decoder.next() {
+      MetadataReady(value) => metadata = Some(value)
+      AudioFrame(frame) => {
+        frames.push({
+          sample: frame.sample_number,
+          offset: frame.byte_offset,
+          samples: frame.block_size,
+          bytes: frame.byte_length,
+        })
+        total_samples += frame.block_size.to_int64()
+      }
+      LinkEnd(_) => raise Invalid(0L, "native index does not support Ogg links")
+      NeedInput =>
+        if cursor == data.length() {
+          decoder.finish()
+        } else {
+          let end = if data.length() - cursor > 16384 {
+            cursor + 16384
+          } else {
+            data.length()
+          }
+          cursor += decoder.push(data[cursor:end].to_owned())
+        }
+      Done(integrity) =>
+        match metadata {
+          Some(metadata) =>
+            return { metadata, frames, total_samples, integrity, }
+          None => raise Invalid(0L, "missing metadata")
+        }
+    }
+  } nobreak {
+    raise Invalid(0L, "index incomplete")
+  }
+}
+
+///|
+/// Find the last indexed frame at or before sample, in logarithmic time.
+pub fn SeekIndex::locate(self : SeekIndex, sample : Int64) -> FrameLocation? {
+  if sample < 0L || sample >= self.total_samples {
+    return None
+  }
+  let mut low = 0
+  let mut high = self.frames.length()
+  while low < high {
+    let mid = low + (high - low) / 2
+    if self.frames[mid].sample <= sample {
+      low = mid + 1
+    } else {
+      high = mid
+    }
+  }
+  if low == 0 {
+    None
+  } else {
+    Some(self.frames[low - 1])
+  }
+}
+
+///|
+/// Crop a frame to the half-open absolute sample interval. Copies all planes.
+pub fn crop_frame(frame : Frame, start : Int64, end : Int64) -> Frame? {
+  let first = if start > frame.sample_number {
+    start
+  } else {
+    frame.sample_number
+  }
+  let frame_end = frame.sample_number + frame.block_size.to_int64()
+  let last = if end < frame_end { end } else { frame_end }
+  if first >= last {
+    return None
+  }
+  let offset = (first - frame.sample_number).to_int()
+  let count = (last - first).to_int()
+  let channels = frame.channels.map(plane => {
+    Array::makei(count, i => plane[offset + i])
+  })
+  Some({ ..frame, sample_number: first, block_size: count, channels, })
+}
+
+///|
+/// Seek through an existing index. The index must describe this exact input;
+/// every selected frame CRC is checked again. Global MD5 comes from build_index.
+pub fn decode_indexed_range(
+  data : Bytes,
+  index : SeekIndex,
+  start : Int64,
+  end : Int64,
+) -> Audio raise FlacError {
+  if start < 0L || end < start || end > index.total_samples {
+    raise Invalid(0L, "sample interval is outside stream")
+  }
+  let frames = []
+  if start == end {
+    return { metadata: index.metadata, frames, integrity: index.integrity, }
+  }
+  let location = match index.locate(start) {
+    Some(location) => location
+    None => raise Invalid(0L, "sample location missing")
+  }
+  if location.offset < 0L || location.offset >= data.length().to_int64() {
+    raise Invalid(location.offset, "index offset is outside input")
+  }
+  let mut offset = location.offset.to_int()
+  let mut sample = location.sample
+  while sample < end {
+    let (frame, next) = parse_frame(
+      data,
+      offset,
+      index.metadata.info,
+      offset.to_int64(),
+    )
+    let frame = { ..frame, sample_number: sample, }
+    if crop_frame(frame, start, end) is Some(cropped) {
+      frames.push(cropped)
+    }
+    sample += frame.block_size.to_int64()
+    offset = next
+  }
+  { metadata: index.metadata, frames, integrity: index.integrity, }
+}
+
+///|
+/// Exact half-open interval, with whole-stream integrity verification.
+/// Native FLAC uses a frame index; Ogg is demultiplexed sequentially.
+pub fn decode_range(
+  data : Bytes,
+  start : Int64,
+  end : Int64,
+) -> Audio raise FlacError {
+  if start < 0L || end < start {
+    raise Invalid(0L, "invalid sample interval")
+  }
+  if data.length() >= 4 && data[:4] == b"fLaC" {
+    return decode_indexed_range(data, build_index(data), start, end)
+  }
+  let links = decode_chained(data)
+  let mut total = 0L
+  let mut integrity = Md5Verified
+  let frames = []
+  for audio in links {
+    if audio.integrity != Md5Verified {
+      integrity = Md5Unavailable
+    }
+    for original in audio.frames {
+      let frame = { ..original, sample_number: total, }
+      total += frame.block_size.to_int64()
+      if crop_frame(frame, start, end) is Some(frame) {
+        frames.push(frame)
+      }
+    }
+  }
+  if end > total {
+    raise Invalid(0L, "sample interval is outside stream")
+  }
+  { metadata: links[0].metadata, frames, integrity, }
+}

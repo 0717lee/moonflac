@@ -1,0 +1,9 @@
+import {
+  "0717lee/moonflac" @flac,
+  "moonbitlang/core/bench",
+  "moonbitlang/core/env",
+  "moonbitlang/core/string",
+  "moonbitlang/x/fs",
+}
+
+pkgtype(kind: "executable")

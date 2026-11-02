@@ -1,0 +1,114 @@
+[
+  {
+    "test": "golden_00_test.mbt",
+    "source": "validation\\cache\\generated\\depth-04-channels-1.flac",
+    "source_sha256": "3ca82680d8ce29c84e88d0c2e618dbd1e92742dca0d7bcf2aef2cfa687f32676",
+    "flac_sha256": "3ca82680d8ce29c84e88d0c2e618dbd1e92742dca0d7bcf2aef2cfa687f32676",
+    "pcm_sha256": "500530e6f03431253035134a41be683a6f0d91bdd7e0a8c73361dc3ba7b0bcc1",
+    "pcm_bytes": 2117
+  },
+  {
+    "test": "golden_01_test.mbt",
+    "source": "validation\\cache\\generated\\depth-08-channels-2.flac",
+    "source_sha256": "17c4a889d0734f68997fd8e38a4bff398bcd7fadec56e69db4eb03ac7e36da76",
+    "flac_sha256": "17c4a889d0734f68997fd8e38a4bff398bcd7fadec56e69db4eb03ac7e36da76",
+    "pcm_sha256": "05cf60c5461a9ef4c98c84f3f6d9b33512b507b983950898b1065186e5fab697",
+    "pcm_bytes": 4234
+  },
+  {
+    "test": "golden_02_test.mbt",
+    "source": "validation\\cache\\generated\\depth-12-channels-3.flac",
+    "source_sha256": "2408756c731754d4f8ee7f71a2fa8457e41c823cdfa5abbc87ea302e0853b9e1",
+    "flac_sha256": "2408756c731754d4f8ee7f71a2fa8457e41c823cdfa5abbc87ea302e0853b9e1",
+    "pcm_sha256": "6b9d8ae6408b591e28474849f9b2f115cff24e15586724cdb4c801a03a5cf141",
+    "pcm_bytes": 12702
+  },
+  {
+    "test": "golden_03_test.mbt",
+    "source": "validation\\cache\\generated\\depth-16-channels-4.flac",
+    "source_sha256": "a7103893f06423d3b114f6b5419f9a7dcc5cd95b9f5e9e821067654a8aea0e11",
+    "flac_sha256": "a7103893f06423d3b114f6b5419f9a7dcc5cd95b9f5e9e821067654a8aea0e11",
+    "pcm_sha256": "a3b4dd22e322e791f75b5530a021f4f683a971e88a686ede7da422861cb19275",
+    "pcm_bytes": 16936
+  },
+  {
+    "test": "golden_04_test.mbt",
+    "source": "validation\\cache\\generated\\depth-20-channels-5.flac",
+    "source_sha256": "02e06fecd76829ed96edc2d84b1ab9bd1fb934f449164c47c77f9393e1be6926",
+    "flac_sha256": "02e06fecd76829ed96edc2d84b1ab9bd1fb934f449164c47c77f9393e1be6926",
+    "pcm_sha256": "73e2fe94aa03936cab9ac6a76f4da28bff973bbf30d7fcffb2b232b704b56e69",
+    "pcm_bytes": 31755
+  },
+  {
+    "test": "golden_05_test.mbt",
+    "source": "validation\\cache\\generated\\depth-24-channels-6.flac",
+    "source_sha256": "44f2c142deec74eb81a7bac2a03578296ed8753470e716d2af677ea4fafb55f8",
+    "flac_sha256": "44f2c142deec74eb81a7bac2a03578296ed8753470e716d2af677ea4fafb55f8",
+    "pcm_sha256": "382ecba36e4641494874f9b5504a8ff4d2493a084deeb700aa1b7a64e8274fd2",
+    "pcm_bytes": 38106
+  },
+  {
+    "test": "golden_06_test.mbt",
+    "source": "validation\\cache\\generated\\depth-28-channels-7.flac",
+    "source_sha256": "084be476a1447151ab4735af1da0702fd175322dd4793bbc4e99b1676d14af55",
+    "flac_sha256": "084be476a1447151ab4735af1da0702fd175322dd4793bbc4e99b1676d14af55",
+    "pcm_sha256": "f33467ff0a6d9e1f3dc9568d8640ef399e6eae41bc7aa6230e6924bbc89c06d6",
+    "pcm_bytes": 59276
+  },
+  {
+    "test": "golden_07_test.mbt",
+    "source": "validation\\cache\\generated\\depth-32-channels-8.flac",
+    "source_sha256": "716a980b1362ad74ddfe48b13ad3a0ca81c4685f0c4cf9d48d292d05ab1ecb37",
+    "flac_sha256": "716a980b1362ad74ddfe48b13ad3a0ca81c4685f0c4cf9d48d292d05ab1ecb37",
+    "pcm_sha256": "24ff897e0c58598c7e349559b231fdf3f3145f0302f4127283129670fd47d4cf",
+    "pcm_bytes": 67744
+  },
+  {
+    "test": "golden_08_test.mbt",
+    "source": "validation\\cache\\generated\\ogg-16-2.oga",
+    "source_sha256": "330a0bcedc0eb6830413de6b7b7ef440fb67787af5895bb2f27d7c2c4ace2af6",
+    "flac_sha256": "330a0bcedc0eb6830413de6b7b7ef440fb67787af5895bb2f27d7c2c4ace2af6",
+    "pcm_sha256": "974c75cb4e2ba671995351df6821e15cb962a069fd4cf2b285053731fc893304",
+    "pcm_bytes": 8468
+  },
+  {
+    "test": "golden_09_test.mbt",
+    "source": "validation\\cache\\flac-test-files\\subset\\12 - qlp precision 15 bit.flac",
+    "source_sha256": "d33731350269929542c6e0a788c1b9a27eb91dcb3a20f5f960b8569be012c6fa",
+    "flac_sha256": "e97c4508f43cb862c22086fddb4f83d0826804e203d400a756e561734d6df6cc",
+    "pcm_sha256": "49459ba88898bbea104b6ee29a428fdffb0443c4ca8564cb44c292fb847c87c5",
+    "pcm_bytes": 18432
+  },
+  {
+    "test": "golden_10_test.mbt",
+    "source": "validation\\cache\\flac-test-files\\subset\\16 - partition order 8 containing escaped partitions.flac",
+    "source_sha256": "5562cff546a1b0d93cea31c0c375c5df65658311de1fc3d322d14b8a2c5ac930",
+    "flac_sha256": "0e0d08d1e988a5075340884b6443a85fa576ae0b74b0e33abc0d876bb0a05488",
+    "pcm_sha256": "e650d9e200b7a4d2ae5fd992936d74609855fb07c309663269b360d938aac85d",
+    "pcm_bytes": 16384
+  },
+  {
+    "test": "golden_11_test.mbt",
+    "source": "validation\\cache\\flac-test-files\\subset\\31 - high resolution audio, using only 32nd order predictors.flac",
+    "source_sha256": "caf84fbf740a98e3371a58df03422722a7d6058289b11a291f0b39103ea20133",
+    "flac_sha256": "e86cce0bc46b5af917d376a2dbb1b615e88c98cd90922a754c5f77c9c41186fa",
+    "pcm_sha256": "355af2a21a8a6d4bee6a3acf74cca5d594fb37dfece8e50125edb7e5a5c1c170",
+    "pcm_bytes": 49152
+  },
+  {
+    "test": "golden_12_test.mbt",
+    "source": "validation\\cache\\flac-test-files\\subset\\61 - predictor overflow check, 16-bit.flac",
+    "source_sha256": "9b15791a8b8ca14a6b9a2374ecf7c34be25bc7b9e64fa600eb5f7608194b0b61",
+    "flac_sha256": "20ff59ccf9c728c8d0ff1081ddc2bff5bddcdc54cf8f613026a8f70e25f28a48",
+    "pcm_sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+    "pcm_bytes": 8192
+  },
+  {
+    "test": "golden_13_test.mbt",
+    "source": "validation\\cache\\flac-test-files\\subset\\64 - rice partitions with escape code zero.flac",
+    "source_sha256": "3ad0bf2e9b9c78cd04deb0a8e133f5d088db051e42cbf3ffb15e1b528f009ca6",
+    "flac_sha256": "578458f612e15ed37a48a9ef0e1b0bb4aad3e521555183d32eb6f91ee2102b34",
+    "pcm_sha256": "624aa07d2eab7bd8a83a31cece98519b53730ebff06f1672df6a68034dad046a",
+    "pcm_bytes": 8192
+  }
+]

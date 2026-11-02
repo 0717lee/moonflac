@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MoonFLAC — Listening room</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+<header><a class="wordmark" href="./">◒ MOONFLAC</a><span>PURE MOONBIT / LOSSLESS AUDIO</span></header>
+<section class="intro"><p class="eyebrow">THE LISTENING ROOM · 01</p><h1>Every sample.<br><em>Exactly as recorded.</em></h1><p class="lede">Inspect, listen, and export FLAC audio.<br>Decoded locally in a dedicated worker. Your files stay here.</p></section>
+<section class="desk" aria-label="Audio workstation">
+<div id="drop" class="drop"><div><span class="eyebrow">LOAD A RECORDING</span><h2 id="filename">Drop your FLAC here</h2><p>Native FLAC or Ogg FLAC · up to 64 MiB in this demo</p></div><label class="button">Choose file<input id="file" type="file" accept=".flac,.oga,.ogg,audio/flac,audio/ogg"></label></div>
+<div class="signal"><div class="backend-control"><label for="backend">DECODER BACKEND</label><select id="backend"><option value="js">JavaScript</option><option value="wasm-gc">WebAssembly GC</option></select><span>Switch to decode the same file again</span></div><div class="signal-head"><span>WAVEFORM / ALL CHANNELS</span><span id="duration">00:00.000</span></div><canvas id="wave" aria-label="Audio waveform"></canvas><input id="seek" type="range" min="0" max="1" step="0.001" value="0" disabled aria-label="Playback position"><div class="transport"><button id="play" disabled>▶ Play</button><button id="stop" disabled>↤ Reset</button><output id="position">00:00.000</output><button id="export" class="export" disabled>Export WAV ↗</button></div></div>
+<div id="status" role="status" aria-live="polite">Ready for a recording.</div>
+<dl class="metrics"><div><dt>SAMPLE RATE</dt><dd id="rate">—</dd></div><div><dt>RESOLUTION</dt><dd id="bits">—</dd></div><div><dt>CHANNELS</dt><dd id="channels">—</dd></div><div><dt>DECODE TIME</dt><dd id="timing">—</dd></div></dl>
+<details><summary>Decoder & integrity details</summary><p id="details">Choose the JavaScript or WebAssembly GC backend above. Web Audio plays MoonBit PCM; it does not decode the FLAC file.</p><pre id="metadata"></pre><p>WAV export retains original integer precision. Browser playback uses Float32 and may resample to the audio device rate. This preview holds decoded audio in memory; the library also provides streaming APIs.</p></details>
+</section><footer><span>BUILT FOR THE DETAILS.</span><span>4–32 BIT · 1–8 CHANNELS · NO UPLOADS</span></footer>
+</main><script type="module" src="app.js"></script></body></html>
+
+
