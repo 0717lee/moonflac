@@ -181,7 +181,21 @@ def main():
         run(flac, "-d", "-f", "--silent", "--force-raw-format", "--endian=little",
             "--sign=signed", "-o", str(mux_raw), str(mux_ogg))
         assert mux_raw.read_bytes() == wav_chunks(mux_wav.read_bytes())[b"data"]
-        checks.append("Ogg mux: libFLAC accepts output and decoded PCM matches source")
+        mux_plain_wav = work / "mux-plain.wav"
+        mux_pcm = wav_chunks(mux_wav.read_bytes())[b"data"]
+        plain_fmt = struct.pack("<HHIIHH", 1, 2, 48000, 48000 * 4, 4, 16)
+        plain_body = (b"WAVEfmt " + struct.pack("<I", len(plain_fmt)) + plain_fmt
+                      + b"data" + struct.pack("<I", len(mux_pcm)) + mux_pcm)
+        mux_plain_wav.write_bytes(b"RIFF" + struct.pack("<I", len(plain_body)) + plain_body)
+        mux_plain = work / "mux-plain.flac"
+        run(cli, "encode", str(mux_plain_wav), str(mux_plain))
+        mux_custom = work / "mux-custom.oga"
+        run(cli, "ogg", str(mux_plain), str(mux_custom),
+            "--serial", "0x12345678", "--vendor", "MoonTest")
+        custom_info = json.loads(run(cli, "info", str(mux_custom), "--json"))
+        assert custom_info["metadata"]["comments"]["vendor"] == "MoonTest", custom_info
+        run(flac, "-t", str(mux_custom))
+        checks.append("Ogg mux: libFLAC accepts output, PCM matches, serial/vendor options work")
 
         encoded = work / "odd.flac"
         run(flac, "-f", "--silent", "--force-raw-format", "--endian=little", "--sign=signed",

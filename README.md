@@ -84,7 +84,7 @@ moonflac ogg recording.flac recording.oga
 moonflac info recording.oga
 ```
 
-The `ogg` command stages its native input in memory, so the CLI is intended for ordinary files rather than multi-gigabyte recordings. Use the library's native encoder plus a streaming consumer when the input itself cannot be held in memory. `--serial HEX` overrides the default logical-stream serial number `0x4d464c43`. [`examples/ogg`](examples/ogg/main.mbt) is a three-target PCM-to-Ogg round trip.
+The `ogg` command stages its native input in memory, so the CLI is intended for ordinary files rather than multi-gigabyte recordings. Use the library's native encoder plus a streaming consumer when the input itself cannot be held in memory. `--serial HEX` overrides the default logical-stream serial number `0x4d464c43`; `--vendor NAME` sets the vendor string used only when the source has no Vorbis comment. [`examples/ogg`](examples/ogg/main.mbt) is a three-target PCM-to-Ogg round trip.
 
 ## Library and streaming
 

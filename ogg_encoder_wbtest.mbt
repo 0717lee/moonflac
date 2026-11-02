@@ -58,6 +58,24 @@ test "Ogg mux continues a frame across pages" {
 }
 
 ///|
+test "Ogg mux honors serial and vendor options" {
+  let samples = ogg_encoder_test_samples(1024, 2)
+  let config = EncoderConfig::new(
+    { sample_rate: 48000, channels: 2, bits_per_sample: 16, },
+    block_size=1024,
+    effort=0,
+  )
+  let native = encode_pcm(samples, config)
+  let ogg = ogg_from_flac(native, serial=0x12345678U, vendor="MoonTest")
+  assert_eq(ogg[14].to_int(), 0x78)
+  assert_eq(ogg[15].to_int(), 0x56)
+  assert_eq(ogg[16].to_int(), 0x34)
+  assert_eq(ogg[17].to_int(), 0x12)
+  let audio = decode(ogg)
+  assert_eq(audio.metadata.comments.unwrap().vendor, "MoonTest")
+}
+
+///|
 test "Ogg mux rejects non-FLAC input" {
   let invalid = try {
     let _ = ogg_from_flac(b"not a flac stream")

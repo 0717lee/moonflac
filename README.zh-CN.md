@@ -72,7 +72,7 @@ moonflac ogg recording.flac recording.oga
 moonflac info recording.oga
 ```
 
-`ogg` 命令会把原生输入整体读入内存，适合普通文件而非数十 GB 录音；输入本身无法驻留内存时，应使用库的原生编码流式接口并自行消费输出。`--serial HEX` 可覆盖默认逻辑流序号 `0x4d464c43`。[`examples/ogg`](examples/ogg/main.mbt) 是三目标可运行的 PCM→Ogg 往返示例。
+`ogg` 命令会把原生输入整体读入内存，适合普通文件而非数十 GB 录音；输入本身无法驻留内存时，应使用库的原生编码流式接口并自行消费输出。`--serial HEX` 可覆盖默认逻辑流序号 `0x4d464c43`；`--vendor NAME` 只在源文件没有 Vorbis 注释时设置生成的 vendor 字符串。[`examples/ogg`](examples/ogg/main.mbt) 是三目标可运行的 PCM→Ogg 往返示例。
 
 ## 原生 FLAC 编码 API
 

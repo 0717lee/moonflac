@@ -7,7 +7,7 @@ const USAGE : String =
   #|  moonflac decode INPUT OUTPUT [--raw] [--start SAMPLE] [--end SAMPLE] [--rf64]
   #|  moonflac encode INPUT OUTPUT [--raw --sample-rate N --channels N --bits N]
   #|    [--channel-mask HEX] [--block-size N] [--effort 0..8] [--variable-block] [--non-audio]
-  #|  moonflac ogg INPUT OUTPUT [--serial HEX]
+  #|  moonflac ogg INPUT OUTPUT [--serial HEX] [--vendor NAME]
   #|All commands accept --max-buffer BYTES (default 33554432, minimum 4).
   #|Sample ranges are zero-based and end-exclusive. Raw PCM is signed,
   #|interleaved, little-endian, unshifted, in ceil(bit-depth/8) bytes.
@@ -33,6 +33,7 @@ struct Options {
   variable_block : Bool
   non_audio : Bool
   serial : UInt32
+  vendor : String
 }
 
 ///|
@@ -116,6 +117,7 @@ fn parse(args : Array[String]) -> Options? {
   let mut variable_block = false
   let mut non_audio = false
   let mut serial = 0x4d464c43U
+  let mut vendor = "MoonFLAC"
   let mut i = 2
   if command == "decode" || command == "encode" || command == "ogg" {
     if args.length() < 3 {
@@ -152,6 +154,13 @@ fn parse(args : Array[String]) -> Options? {
           Some(value) => value
           None => return None
         }
+        i += 1
+      }
+      "--vendor" if command == "ogg" => {
+        if i + 1 >= args.length() || args[i + 1].is_empty() {
+          return None
+        }
+        vendor = args[i + 1]
         i += 1
       }
       "--sample-rate" | "--channels" | "--bits" | "--block-size" | "--effort" if command ==
@@ -245,6 +254,7 @@ fn parse(args : Array[String]) -> Options? {
     variable_block,
     non_audio,
     serial,
+    vendor,
   })
 }
 
@@ -348,7 +358,11 @@ fn execute_ogg(options : Options) -> Unit raise {
     raise CliFailure(4, "cannot open native FLAC input")
   }
   let native = read_entire_input()
-  let ogg = @flac.ogg_from_flac(native, serial=options.serial)
+  let ogg = @flac.ogg_from_flac(
+    native,
+    serial=options.serial,
+    vendor=options.vendor,
+  )
   let destination = @utf8.encode(options.output)
   let status = open_output(destination, destination.length())
   if status == -2 {
