@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.1 — 2026-11-02
+
+### Added
+
+- `moonflac ogg --serial HEX --vendor NAME` for custom Ogg logical-stream identity and synthesized vendor text.
+- Raw recovery test package restored to the public validation set.
+
+### Changed
+
+- Public tree keeps the current source, tests, examples and validation entry points; historical benchmark snapshots remain local.
+- Submission-facing documentation is shorter and points to the current acceptance summary.
+
+### Validation
+
+- Native, JavaScript and wasm-gc: 197/197 project tests each.
+- CLI contract test covers Ogg serial/vendor options and libFLAC PCM equality.
+
 ## 0.2.0 — 2026-11-02
 
 ### Added
