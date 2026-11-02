@@ -35,6 +35,7 @@ moon check --target wasm-gc
 moon test --target wasm-gc
 moon build --target wasm-gc
 moon run examples/stream --target native
+moon run examples/ogg --target native
 ```
 
 CLI 面向 native，浏览器桥接支持 JavaScript 与 wasm-gc，根库支持三个目标。CI 配置位于 `.github/workflows/ci.yml`；本地通过不代表远端 CI 已运行。
@@ -71,7 +72,7 @@ moonflac ogg recording.flac recording.oga
 moonflac info recording.oga
 ```
 
-`ogg` 命令会把原生输入整体读入内存，适合普通文件而非数十 GB 录音；输入本身无法驻留内存时，应使用库的原生编码流式接口并自行消费输出。`--serial HEX` 可覆盖默认逻辑流序号 `0x4d464c43`。
+`ogg` 命令会把原生输入整体读入内存，适合普通文件而非数十 GB 录音；输入本身无法驻留内存时，应使用库的原生编码流式接口并自行消费输出。`--serial HEX` 可覆盖默认逻辑流序号 `0x4d464c43`。[`examples/ogg`](examples/ogg/main.mbt) 是三目标可运行的 PCM→Ogg 往返示例。
 
 ## 原生 FLAC 编码 API
 
