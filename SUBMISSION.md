@@ -9,6 +9,7 @@
 | 项目名称 | MoonFLAC |
 | GitHub ID | `0717lee` |
 | 仓库 | <https://github.com/0717lee/moonflac> |
+| Mooncakes | <https://mooncakes.io/docs/0717lee/moonflac> |
 | 许可证 | Apache-2.0 |
 | 参赛形式 | 个人（1 人） |
 | 方向 | 音频编解码基础库 / 工具库 |

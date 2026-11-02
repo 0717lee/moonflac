@@ -7,6 +7,7 @@
 MoonFLAC 是纯 MoonBit 的 FLAC 无损编解码库，支持 native、JavaScript 和 WebAssembly GC，覆盖解码、编码、Ogg FLAC 输出、流式处理、精确裁剪、CLI 和浏览器 Playground。核心不依赖 libFLAC、FFmpeg、FFI 或浏览器音频解码器。
 
 - 仓库：<https://github.com/0717lee/moonflac>
+- Mooncakes：<https://mooncakes.io/docs/0717lee/moonflac>
 - 作者：谦友Lee（`0717lee`）
 - 许可证：Apache-2.0
 - 方向：音频编解码基础库 / 工具库
@@ -53,7 +54,7 @@ flac -t output.oga
 
 - 性能目标“超过 libFLAC”未完成。
 - 有界 Ogg 流式写入器、MP4/Matroska、系统播放器、AudioWorklet 不在范围内。
-- Mooncakes 暂未发布；当前以 GitHub Release 和源码仓库交付。
+- Mooncakes 已发布 `0.2.1`，GitHub Release 同步提供源码归档。
 
 ## 提交清单
 

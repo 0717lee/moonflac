@@ -12,6 +12,7 @@ MoonFLAC implements RFC 9639 decoding, native FLAC encoding, Ogg FLAC muxing, na
 | Ogg output | libFLAC `-t` accepted; 16/24/32-bit, 2/6/8-channel PCM matched byte-for-byte |
 | Browser | JavaScript and wasm-gc artifacts run in a Worker; integer WAV export preserves source precision |
 | Release | `v0.2.1` |
+| Mooncakes | [`0717lee/moonflac@0.2.1`](https://mooncakes.io/docs/0717lee/moonflac) |
 
 ## Historical baseline
 

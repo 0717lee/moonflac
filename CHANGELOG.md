@@ -6,6 +6,7 @@
 
 - `moonflac ogg --serial HEX --vendor NAME` for custom Ogg logical-stream identity and synthesized vendor text.
 - Raw recovery test package restored to the public validation set.
+- Published to Mooncakes as `0717lee/moonflac@0.2.1`.
 
 ### Changed
 

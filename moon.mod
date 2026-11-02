@@ -10,6 +10,8 @@ preferred_target = "native"
 
 description = "Pure MoonBit FLAC encoding and decoding for native, JavaScript and WebAssembly GC"
 
+repository = "https://github.com/0717lee/moonflac"
+
 keywords = [ "flac", "audio", "decoder", "encoder", "streaming" ]
 
 import {

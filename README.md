@@ -23,7 +23,15 @@ The implementation follows [RFC 9639](https://www.rfc-editor.org/rfc/rfc9639.htm
 
 ## Build and test
 
-Install the [MoonBit toolchain](https://www.moonbitlang.com/download/), a native C toolchain, Node.js and Python 3. CI pins compiler `0.10.16+b1a0e846e`.
+Install the [MoonBit toolchain](https://www.moonbitlang.com/download/), a native C toolchain, Node.js and Python 3. CI pins compiler `0.10.19+97801ee1b`.
+
+Install the published library:
+
+```sh
+moon add 0717lee/moonflac@0.2.1
+```
+
+Mooncakes: <https://mooncakes.io/docs/0717lee/moonflac>
 
 ```sh
 moon update
