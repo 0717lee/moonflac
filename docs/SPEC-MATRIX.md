@@ -67,7 +67,7 @@ also pass on native, JavaScript and wasm-gc. See `validation/README.md` for comm
 | Bounded push/pull/finish and output ownership | `encoder.mbt` | scalar splits/backpressure/errors; increasing-duration and maximum-block process-memory observations |
 | PCM WAV/RF64/raw input and CLI finalization | `pcm_input.mbt`, `cmd/moonflac/main.mbt` | all 29 valid depths in RIFF/RF64, custom/zero masks, malformed input and 64-bit chunk tests; independent CLI re-decode |
 
-The [encoder ledger](ENCODER-PROPOSAL.md) records all six completed acceptance gates, including all 75 valid public files in full. Its [oracle documentation](../validation/encoder/README.md) records actual source coverage and commands; forced writer representations and natural compression decisions are separate checks.
+The [acceptance summary](ACCEPTANCE.md) records the current test and release status. Its [oracle documentation](../validation/encoder/README.md) records encoder source coverage and commands; forced writer representations and natural compression decisions are separate checks.
 
 ## Deliberate project boundaries
 
