@@ -1,6 +1,6 @@
 # MoonFLAC · 2026 MoonBit 黑客松
 
-> 状态（2026-11-02）：公开仓库、CI、Release、PR/Issue 已就绪；报名表和赛事群需本人完成。官网仍显示十月赛已截止，下一赛期以官方通知为准。
+> 状态（2026-11-02）：已按验收指南准备。审核通过后无需再提交表格；保持开发并把内容上传到 GitHub 即可。公开仓库、CI、Release、PR/Issue 和 Mooncakes 均已就绪。
 
 ## 项目
 
@@ -56,12 +56,14 @@ flac -t output.oga
 - 有界 Ogg 流式写入器、MP4/Matroska、系统播放器、AudioWorklet 不在范围内。
 - Mooncakes 已发布 `0.2.1`，GitHub Release 同步提供源码归档。
 
-## 提交清单
+## 验收状态
 
-- [x] 公开仓库、CI、Release、PR/Issue
-- [x] 一页说明与报名表填写稿
-- [x] 三后端测试和独立 libFLAC 验证
-- [ ] 报名表、赛事群、当前赛期确认
-- [ ] 如需，录制演示视频
+- [x] MoonBit 主要实现，CI 使用最新 `moonc 0.10.19+97801ee1b`
+- [x] 公开仓库与清晰提交记录
+- [x] README、安装方式、可运行示例
+- [x] CI 覆盖检查、构建、测试
+- [x] 197/197 测试与 libFLAC 独立验证
+- [x] Mooncakes `0717lee/moonflac@0.2.1`
+- [x] Apache-2.0，第三方来源已记录
 
-报名表填写稿见 [SUBMISSION.md](SUBMISSION.md)。
+审核通过后无需再提交表格；后续只需保持开发并同步 GitHub。项目摘要见 [SUBMISSION.md](SUBMISSION.md)。
