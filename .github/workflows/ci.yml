@@ -19,7 +19,7 @@ jobs:
       - name: Install official MoonBit toolchain
         run: |
           curl -fsSL https://cli.moonbitlang.com/install/unix.sh -o /tmp/install-moonbit.sh
-          bash /tmp/install-moonbit.sh '0.10.19+97801ee1b'
+          bash /tmp/install-moonbit.sh '0.10.20+65efd5b93'
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
       - name: Install independent FLAC reference
         run: sudo apt-get update && sudo apt-get install -y flac libflac-dev build-essential

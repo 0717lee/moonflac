@@ -1,10 +1,11 @@
 ///|
 /// STREAMINFO MD5 validation at the end of a complete stream.
+#derive(Show, Debug, Eq)
 pub(all) enum Integrity {
   Md5Verified
   Md5Unavailable
   FrameCrcOnly
-} derive(Show, Debug, Eq)
+}
 
 ///|
 /// Pull one event at a time; PCM arrays belong to the caller.

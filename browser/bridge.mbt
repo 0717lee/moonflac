@@ -1,9 +1,10 @@
 ///|
 /// Enforce the preview's PCM budget while consuming frames, before whole-file
 /// allocation. The library decoder itself remains suitable for longer streams.
+#derive(Show)
 suberror PreviewError {
   PreviewError(String)
-} derive(Show)
+}
 
 ///|
 fn preview_audio(data : Bytes) -> @moonflac.Audio raise {

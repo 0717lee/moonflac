@@ -1,10 +1,11 @@
 ///|
 /// Signed unshifted integer PCM format; a sample is one channel value.
+#derive(Debug, Eq)
 pub(all) struct PcmFormat {
   sample_rate : Int32
   channels : Int32
   bits_per_sample : Int32
-} derive(Debug, Eq)
+}
 
 ///|
 /// Effort bounds candidate searches, never the accepted PCM domain.

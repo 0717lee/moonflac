@@ -33,11 +33,12 @@ pub fn parse_metadata(Bytes, max_metadata_bytes? : Int32) -> (Metadata, Int32) r
 pub fn wav_header(StreamInfo, Int64, channel_mask? : UInt32, rf64? : Bool) -> Bytes raise FlacError
 
 // Errors
+#derive(Show)
 pub suberror FlacError {
   NeedMore
   Invalid(Int64, String)
   Limit(String)
-} derive(Show)
+}
 
 // Types and methods
 pub(all) struct Audio {
@@ -46,18 +47,21 @@ pub(all) struct Audio {
   integrity : Integrity
 }
 
+#derive(Show)
 pub(all) struct CueIndex {
   offset : UInt64
   number : Int32
-} derive(Show)
+}
 
+#derive(Show)
 pub(all) struct CueSheet {
   catalog : Bytes
   lead_in : UInt64
   is_cd : Bool
   tracks : Array[CueTrack]
-} derive(Show)
+}
 
+#derive(Show)
 pub(all) struct CueTrack {
   offset : UInt64
   number : Int32
@@ -65,7 +69,7 @@ pub(all) struct CueTrack {
   non_audio : Bool
   pre_emphasis : Bool
   indices : Array[CueIndex]
-} derive(Show)
+}
 
 pub(all) enum DecodeEvent {
   MetadataReady(Metadata)
@@ -120,6 +124,7 @@ pub(all) struct EncoderSummary {
   final_header : Bytes
 }
 
+#derive(Show)
 pub(all) struct Frame {
   sample_number : Int64
   number : Int64
@@ -130,7 +135,7 @@ pub(all) struct Frame {
   block_size : Int32
   byte_offset : Int64
   byte_length : Int32
-} derive(Show)
+}
 
 pub(all) struct FrameLocation {
   sample : Int64
@@ -139,14 +144,16 @@ pub(all) struct FrameLocation {
   bytes : Int32
 }
 
+#derive(Eq, Show, @debug.Debug)
 pub(all) enum Integrity {
   Md5Verified
   Md5Unavailable
   FrameCrcOnly
-} derive(Eq, Show, @debug.Debug)
+}
 
 type Md5
 
+#derive(Show)
 pub(all) struct Metadata {
   info : StreamInfo
   blocks : Array[MetadataBlock]
@@ -155,14 +162,15 @@ pub(all) struct Metadata {
   cuesheet : CueSheet?
   cuesheets : Array[CueSheet]
   pictures : Array[Picture]
-} derive(Show)
+}
 pub fn Metadata::channel_mask(Self) -> UInt32? raise FlacError
 pub fn Metadata::effective_channel_mask(Self) -> UInt32 raise FlacError
 
+#derive(Show)
 pub(all) struct MetadataBlock {
   kind : Int32
   data : Bytes
-} derive(Show)
+}
 
 type OggDemux
 pub fn OggDemux::buffered_bytes(Self) -> Int32
@@ -171,11 +179,12 @@ pub fn OggDemux::new(max_packet_bytes? : Int32) -> Self
 pub fn OggDemux::peak_buffered_bytes(Self) -> Int32
 pub fn OggDemux::push(Self, Bytes) -> Array[Bytes] raise FlacError
 
+#derive(Eq, @debug.Debug)
 pub(all) struct PcmFormat {
   sample_rate : Int32
   channels : Int32
   bits_per_sample : Int32
-} derive(Eq, @debug.Debug)
+}
 
 pub struct PcmInput {
   mut pending : BytesView
@@ -217,6 +226,7 @@ pub(all) enum PcmInputEvent {
   PcmInputDone
 }
 
+#derive(Show)
 pub(all) struct Picture {
   kind : UInt32
   media_type : String
@@ -226,7 +236,7 @@ pub(all) struct Picture {
   depth : UInt32
   colors : UInt32
   data : Bytes
-} derive(Show)
+}
 
 pub(all) enum RawDecodeEvent {
   RawFrame(Frame)
@@ -251,12 +261,14 @@ pub(all) struct SeekIndex {
 }
 pub fn SeekIndex::locate(Self, Int64) -> FrameLocation?
 
+#derive(Show)
 pub(all) struct SeekPoint {
   sample : UInt64
   offset : UInt64
   samples : Int32
-} derive(Show)
+}
 
+#derive(Show)
 pub(all) struct StreamInfo {
   min_block_size : Int32
   max_block_size : Int32
@@ -267,12 +279,13 @@ pub(all) struct StreamInfo {
   bits_per_sample : Int32
   total_samples : Int64
   md5 : Bytes
-} derive(Show)
+}
 
+#derive(Show)
 pub(all) struct VorbisComment {
   vendor : String
   entries : Array[String]
-} derive(Show)
+}
 pub fn VorbisComment::values(Self, String) -> Array[String]
 
 // Type aliases

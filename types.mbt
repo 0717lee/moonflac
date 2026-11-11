@@ -1,13 +1,15 @@
 ///|
 /// Positioned format errors, incomplete input, and explicit resource limits.
+#derive(Show)
 pub suberror FlacError {
   NeedMore
   Invalid(Int64, String)
   Limit(String)
-} derive(Show)
+}
 
 ///|
 /// STREAMINFO values. A zero total_samples or all-zero MD5 means unknown.
+#derive(Show)
 pub(all) struct StreamInfo {
   min_block_size : Int32
   max_block_size : Int32
@@ -18,10 +20,11 @@ pub(all) struct StreamInfo {
   bits_per_sample : Int32
   total_samples : Int64
   md5 : Bytes
-} derive(Show)
+}
 
 ///|
 /// Owned planar signed PCM, unshifted at its original bit depth.
+#derive(Show)
 pub(all) struct Frame {
   sample_number : Int64
   number : Int64
@@ -32,4 +35,4 @@ pub(all) struct Frame {
   block_size : Int32
   byte_offset : Int64
   byte_length : Int32
-} derive(Show)
+}

@@ -1,30 +1,35 @@
 ///|
 /// Raw blocks are retained, including reserved types 7..126.
+#derive(Show)
 pub(all) struct MetadataBlock {
   kind : Int32
   data : Bytes
-} derive(Show)
+}
 
 ///|
+#derive(Show)
 pub(all) struct SeekPoint {
   sample : UInt64
   offset : UInt64
   samples : Int32
-} derive(Show)
+}
 
 ///|
+#derive(Show)
 pub(all) struct VorbisComment {
   vendor : String
   entries : Array[String]
-} derive(Show)
+}
 
 ///|
+#derive(Show)
 pub(all) struct CueIndex {
   offset : UInt64
   number : Int32
-} derive(Show)
+}
 
 ///|
+#derive(Show)
 pub(all) struct CueTrack {
   offset : UInt64
   number : Int32
@@ -32,17 +37,19 @@ pub(all) struct CueTrack {
   non_audio : Bool
   pre_emphasis : Bool
   indices : Array[CueIndex]
-} derive(Show)
+}
 
 ///|
+#derive(Show)
 pub(all) struct CueSheet {
   catalog : Bytes
   lead_in : UInt64
   is_cd : Bool
   tracks : Array[CueTrack]
-} derive(Show)
+}
 
 ///|
+#derive(Show)
 pub(all) struct Picture {
   kind : UInt32
   media_type : String
@@ -52,9 +59,10 @@ pub(all) struct Picture {
   depth : UInt32
   colors : UInt32
   data : Bytes
-} derive(Show)
+}
 
 ///|
+#derive(Show)
 pub(all) struct Metadata {
   info : StreamInfo
   blocks : Array[MetadataBlock]
@@ -63,7 +71,7 @@ pub(all) struct Metadata {
   cuesheet : CueSheet?
   cuesheets : Array[CueSheet]
   pictures : Array[Picture]
-} derive(Show)
+}
 
 ///|
 priv struct MetaReader {

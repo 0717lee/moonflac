@@ -305,30 +305,30 @@ fn output_bytes(bytes : Bytes) -> Unit raise CliFailure {
 ///|
 fn metadata_json(metadata : @flac.Metadata) -> Json {
   let blocks : Array[Json] = metadata.blocks.map(block => {
-    "type": block.kind.to_json(),
-    "bytes": block.data.length().to_json(),
+    "type": Json(block.kind),
+    "bytes": Json(block.data.length()),
   })
   let pictures : Array[Json] = metadata.pictures.map(picture => {
-    "type": picture.kind.to_json(),
-    "media_type": picture.media_type.to_json(),
-    "description": picture.description.to_json(),
-    "width": picture.width.to_json(),
-    "height": picture.height.to_json(),
-    "depth": picture.depth.to_json(),
-    "colors": picture.colors.to_json(),
-    "bytes": picture.data.length().to_json(),
+    "type": Json(picture.kind),
+    "media_type": Json(picture.media_type),
+    "description": Json(picture.description),
+    "width": Json(picture.width),
+    "height": Json(picture.height),
+    "depth": Json(picture.depth),
+    "colors": Json(picture.colors),
+    "bytes": Json(picture.data.length()),
   })
   let comments : Json = match metadata.comments {
     None => Json::null()
     Some(value) =>
-      { "vendor": value.vendor.to_json(), "entries": value.entries.to_json() }
+      { "vendor": Json(value.vendor), "entries": Json(value.entries) }
   }
   {
-    "blocks": blocks.to_json(),
+    "blocks": Json(blocks),
     "comments": comments,
-    "seek_points": metadata.seek_points.length().to_json(),
-    "cuesheets": metadata.cuesheets.length().to_json(),
-    "pictures": pictures.to_json(),
+    "seek_points": Json(metadata.seek_points.length()),
+    "cuesheets": Json(metadata.cuesheets.length()),
+    "pictures": Json(pictures),
   }
 }
 
