@@ -28,7 +28,7 @@ MoonFLAC 是面向 native、JavaScript 和 WebAssembly GC 的纯 MoonBit FLAC �
 安装已发布的库：
 
 ```sh
-moon add 0717lee/moonflac@0.2.1
+moon add 0717lee/moonflac@0.2.2
 ```
 
 Mooncakes：<https://mooncakes.io/docs/0717lee/moonflac>

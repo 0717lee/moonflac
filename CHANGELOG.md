@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.2 — 2026-11-11
+
+### Changed
+
+- Upgrade CI and local development to the current official MoonBit toolchain `0.10.20+65efd5b93`.
+- Replace the removed promoted `to_json()` API with `Json(value)` in the CLI metadata report.
+- Migrate `} derive(...)` to `#derive(...)`.
+
+### Validation
+
+- `moon fmt --check`, three-backend check/build/test: 197/197 on native, JavaScript and wasm-gc.
+- CLI contract test with libFLAC PCM equality passes on the new toolchain.
+
 ## 0.2.1 — 2026-11-02
 
 ### Added

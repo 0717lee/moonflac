@@ -30,6 +30,6 @@ CI 覆盖三后端 check/test/build、示例、CLI 合同测试、libFLAC PCM �
 - **旧 API 修复**：0.10.20 移除了 `Int`/`String`/`Array` 等类型的 promoted `value.to_json()` 方法，`cmd/moonflac/main.mbt` 的 `metadata_json` 中 16 处调用改为官方建议的 `Json(value)` 构造形式；`moon check --target native` 从 16 errors 恢复为 0 errors，`info --json` 输出不变。
 - **旧语法迁移**：14 处 `} derive(...)` 改为 `#derive(...)` 前缀形式，`moon fmt --check` 与 `moon info` 接口漂移检查通过。
 
-## 待办
+## 发布
 
-Mooncakes 上已发布的 `0717lee/moonflac@0.2.1` 仍含 `to_json()` 旧调用，在 0.10.20 下从源码编译会失败；建议 bump 到 `0.2.2` 并重新 `moon publish`。
+`0717lee/moonflac@0.2.2` 包含上述 API 修复，避免 0.2.1 在 0.10.20 下从源码编译失败。
