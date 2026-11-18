@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.2.3 — 2026-11-18
+
+### Changed
+
+- Upgrade CI and development to the current official MoonBit toolchain `0.10.21+06da1ed44`.
+- 0.10.21 removed implicit promotion of trait methods: expose `FlacError`'s
+  derived `Show` implementation via `pub extend ... with Show::{to_string, output}`
+  and replace promoted `.to_string()` calls in the browser bridge with
+  `Show::to_string(x)`.
+- Regenerate the committed public interface.
+
+### Validation
+
+- `moon fmt --check`, three-backend check/test: 197/197 on native, JavaScript
+  and wasm-gc; CLI contract test with libFLAC PCM equality passes.
+
 ## 0.2.2 — 2026-11-11
 
 ### Changed
