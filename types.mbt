@@ -8,6 +8,11 @@ pub suberror FlacError {
 }
 
 ///|
+/// MoonBit 0.10.21 removed implicit promotion of trait methods; expose the
+/// derived Show implementation as regular methods explicitly.
+pub extend FlacError with Show::{to_string, output}
+
+///|
 /// STREAMINFO values. A zero total_samples or all-zero MD5 means unknown.
 #derive(Show)
 pub(all) struct StreamInfo {

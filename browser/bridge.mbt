@@ -113,7 +113,7 @@ pub fn decode_browser(data : Bytes) -> Unit {
       }
       offset += frame.block_size
     }
-    status(audio.integrity.to_string())
+    status(Show::to_string(audio.integrity))
     let meta = audio.metadata
     let text = StringBuilder()
     text.write_string(
@@ -126,9 +126,9 @@ pub fn decode_browser(data : Bytes) -> Unit {
         text.write_string("\n")
       }
     }
-    metadata_text(text.to_string())
+    metadata_text(Show::to_string(text))
   } catch {
-    err => fail(err.to_string())
+    err => fail(Show::to_string(err))
   }
 }
 
@@ -158,6 +158,6 @@ pub fn export_browser(data : Bytes) -> Unit {
       wav_data(b"\x00")
     }
   } catch {
-    err => fail(err.to_string())
+    err => fail(Show::to_string(err))
   }
 }

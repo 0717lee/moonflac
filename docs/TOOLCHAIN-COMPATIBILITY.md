@@ -5,12 +5,12 @@
 ## 实际工具链（`moon version --all`）
 
 ```
-moon     0.1.20261104 (940aa18 2026-11-04)
-moonc    v0.10.20+65efd5b93 (2026-11-05)
-moonrun  0.1.20261104 (940aa18 2026-11-04)
+moon     0.1.20261117 (eb64713 2026-11-17)
+moonc    v0.10.21+06da1ed44 (2026-11-16)
+moonrun  0.1.20261117 (eb64713 2026-11-17)
 ```
 
-CI 固定版本：`0.10.20+65efd5b93`。
+CI 固定版本：`0.10.21+06da1ed44`。
 
 ## 标准入口验证结果
 
@@ -33,3 +33,9 @@ CI 覆盖三后端 check/test/build、示例、CLI 合同测试、libFLAC PCM �
 ## 发布
 
 `0717lee/moonflac@0.2.2` 包含上述 API 修复，避免 0.2.1 在 0.10.20 下从源码编译失败。
+
+## 0.10.21 升级（2026-11-18）
+
+- 官方发布 `moonc 0.10.21+06da1ed44`，CI、README、HACKATHON 与本文档同步固定。
+- 0.10.21 移除了 trait 方法的隐式提升：`FlacError` 显式 `pub extend ... with Show::{to_string, output}`，`browser/bridge.mbt` 4 处 `.to_string()` 改为 `Show::to_string(x)`；`pkg.generated.mbti` 重新生成。
+- 三目标 `moon check` 0 errors、测试 197/197；`moon fmt --check` 与 CLI 合同测试通过。

@@ -39,6 +39,8 @@ pub suberror FlacError {
   Invalid(Int64, String)
   Limit(String)
 }
+pub fn FlacError::output(Self, &Logger) -> Unit
+pub fn FlacError::to_string(Self) -> String
 
 // Types and methods
 pub(all) struct Audio {
