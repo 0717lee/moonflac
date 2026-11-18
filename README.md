@@ -1,6 +1,8 @@
 # MoonFLAC
 
-[简体中文](README.zh-CN.md) · [API](docs/API.md) · [Acceptance](docs/ACCEPTANCE.md) · [Spec matrix](docs/SPEC-MATRIX.md) · [Hackathon note](HACKATHON.md) · [CI](https://github.com/0717lee/moonflac/actions/workflows/ci.yml)
+[![CI](https://github.com/0717lee/moonflac/actions/workflows/ci.yml/badge.svg)](https://github.com/0717lee/moonflac/actions/workflows/ci.yml)
+
+[简体中文](README.zh-CN.md) · [API](docs/API.md) · [Acceptance](docs/ACCEPTANCE.md) · [Spec matrix](docs/SPEC-MATRIX.md) · [Hackathon note](HACKATHON.md) · [Mooncakes](https://mooncakes.io/docs/0717lee/moonflac)
 
 MoonFLAC is a pure MoonBit lossless FLAC codec for native, JavaScript and WebAssembly GC. It covers decoding, native FLAC encoding, Ogg FLAC muxing, streaming, exact sample cropping, a CLI and a browser playground. The codec library uses no libFLAC, FFmpeg, FFI or browser audio decoder; libFLAC is only an external validation oracle.
 
