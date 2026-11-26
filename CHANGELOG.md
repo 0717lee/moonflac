@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Upgrade CI and development to the official MoonBit `1.0.0-rc1+3c0520448` toolchain (`moon` / `moonrun 0.1.20261126`).
+- No source changes required: `moon fmt --check` passes, all three targets keep 197/197 tests, and `pkg.generated.mbti` is unchanged.
+
 ## 0.2.3 — 2026-11-18
 
 ### Changed

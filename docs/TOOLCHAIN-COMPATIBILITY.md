@@ -1,16 +1,16 @@
-# 工具链兼容验证（2026-11-11）
+# 工具链兼容验证（2026-11-26）
 
 按 MoonBit 开源大赛组委会统一维护提醒，使用官方当前发布工具链重新验证。本仓库不在邮件点名的三个项目内，但为保持本机所有项目工具链一致，一并升级。
 
 ## 实际工具链（`moon version --all`）
 
 ```
-moon     0.1.20261117 (eb64713 2026-11-17)
-moonc    v0.10.21+06da1ed44 (2026-11-16)
-moonrun  0.1.20261117 (eb64713 2026-11-17)
+moon     0.1.20261126 (ccd306a 2026-11-26)
+moonc    v1.0.0-rc1+3c0520448 (2026-11-26)
+moonrun  0.1.20261126 (ccd306a 2026-11-26)
 ```
 
-CI 固定版本：`0.10.21+06da1ed44`。
+CI 固定版本：`1.0.0-rc1+3c0520448`。
 
 ## 标准入口验证结果
 
@@ -39,3 +39,10 @@ CI 覆盖三后端 check/test/build、示例、CLI 合同测试、libFLAC PCM �
 - 官方发布 `moonc 0.10.21+06da1ed44`，CI、README、HACKATHON 与本文档同步固定。
 - 0.10.21 移除了 trait 方法的隐式提升：`FlacError` 显式 `pub extend ... with Show::{to_string, output}`，`browser/bridge.mbt` 4 处 `.to_string()` 改为 `Show::to_string(x)`；`pkg.generated.mbti` 重新生成。
 - 三目标 `moon check` 0 errors、测试 197/197；`moon fmt --check` 与 CLI 合同测试通过。
+
+## 1.0 升级（2026-11-26）
+
+- 官方发布 `moonc 1.0.0-rc1+3c0520448`（`moon` / `moonrun 0.1.20261126`），CI、README、HACKATHON 与本文档同步固定。
+- 源码无需改动：`moon fmt --check` 通过，三目标 `moon check` 0 errors、`moon test` 各 197/197，`moon info` 接口零漂移。
+- 三个示例（`examples/stream`、`encode`、`ogg`）在 native / js / wasm-gc 下均运行通过。
+- `pkg.generated.mbti` 无变化。

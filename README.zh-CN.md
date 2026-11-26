@@ -23,7 +23,7 @@ MoonFLAC 是面向 native、JavaScript 和 WebAssembly GC 的纯 MoonBit FLAC �
 
 ## 构建与测试
 
-安装 [MoonBit 工具链](https://www.moonbitlang.com/download/)、本机 C 工具链、Node.js 和 Python 3。CI 固定编译器 `0.10.21+06da1ed44`。
+安装 [MoonBit 工具链](https://www.moonbitlang.com/download/)、本机 C 工具链、Node.js 和 Python 3。CI 固定编译器 `1.0.0-rc1+3c0520448`。
 
 安装已发布的库：
 

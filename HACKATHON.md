@@ -58,7 +58,7 @@ flac -t output.oga
 
 ## 验收状态
 
-- [x] MoonBit 主要实现，CI 使用最新 `moonc 0.10.21+06da1ed44`
+- [x] MoonBit 主要实现，CI 使用最新 `moonc 1.0.0-rc1+3c0520448`
 - [x] 公开仓库与清晰提交记录
 - [x] README、安装方式、可运行示例
 - [x] CI 覆盖检查、构建、测试

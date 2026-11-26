@@ -25,7 +25,7 @@ The implementation follows [RFC 9639](https://www.rfc-editor.org/rfc/rfc9639.htm
 
 ## Build and test
 
-Install the [MoonBit toolchain](https://www.moonbitlang.com/download/), a native C toolchain, Node.js and Python 3. CI pins compiler `0.10.21+06da1ed44`.
+Install the [MoonBit toolchain](https://www.moonbitlang.com/download/), a native C toolchain, Node.js and Python 3. CI pins compiler `1.0.0-rc1+3c0520448`.
 
 Install the published library:
 
