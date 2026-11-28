@@ -12,7 +12,5 @@ pkgtype(kind: "foreign_library")
 options(
   supported_targets: "+js+wasm-gc",
   targets: { "bridge_js.mbt": [ "js" ], "bridge_wasm.mbt": [ "wasm-gc" ] },
-  link: {
-    "js": { "format": "esm" },
-  },
+  link: { "js": { "format": "esm" } },
 )
