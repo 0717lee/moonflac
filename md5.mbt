@@ -1,6 +1,6 @@
 ///|
 /// Incremental RFC 1321 state; only one partial block is retained.
-struct Md5 {
+priv struct Md5 {
   h : Array[UInt32]
   pending : FixedArray[Byte]
   mut used : Int32

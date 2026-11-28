@@ -47,7 +47,9 @@ test "prefix ready mixed-column helper contract covers zero fourteen and clipped
     let high = if low + 2 > 30 { 30 } else { low + 2 }
     for mask = 0; mask < 8; mask = mask + 1 {
       let scratch = EncoderPlanScratch::new()
-      scratch.folded = Array::makei(64, i => i.to_uint() * 982451653U)
+      scratch.folded = Array::makei(64, i => {
+        i.reinterpret_as_uint() * 982451653U
+      })
       for k = low; k <= high; k = k + 1 {
         if k > 0 && (mask & (1 << (k - low))) != 0 {
           encoder_prepare_leaf_prefixes(scratch, 64, 8, k, k)

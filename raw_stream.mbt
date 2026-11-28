@@ -184,8 +184,10 @@ pub fn RawDecoder::next(self : RawDecoder) -> RawDecodeEvent raise FlacError {
   if self.failed is Some(error) {
     raise error
   }
-  self.read_raw_event() catch {
-    error => {
+  let outcome = Ok(self.read_raw_event()) catch { error => Err(error) }
+  match outcome {
+    Ok(event) => event
+    Err(error) => {
       self.failed = Some(error)
       raise error
     }

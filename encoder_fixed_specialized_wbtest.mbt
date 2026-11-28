@@ -52,7 +52,7 @@ test "fixed specialization deterministic random long blocks and scratch ownershi
     let mask = (1L << depth) - 1L
     let low = -(1L << (depth - 1))
     for size in [17, 256, 4096] {
-      let mut state = 9639U + depth.to_uint()
+      let mut state = 9639U + depth.reinterpret_as_uint()
       let samples = Array::makei(size, _ => {
         state = state * 1664525U + 1013904223U
         (state.to_int64() & mask) + low

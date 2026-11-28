@@ -1,7 +1,7 @@
 ///|
 /// Enforce the preview's PCM budget while consuming frames, before whole-file
 /// allocation. The library decoder itself remains suitable for longer streams.
-#derive(Show)
+#derive(Debug)
 suberror PreviewError {
   PreviewError(String)
 }

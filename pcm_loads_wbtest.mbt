@@ -77,8 +77,8 @@ test "full container loads retain arbitrary input splits and reject partial EOF 
   for width in [1, 2, 3, 4] {
     let data = pcm_loads_full_fixture(width)
     let joined = @buffer.Buffer()
-    joined.write_bytes(data)
-    joined.write_bytes(data)
+    joined.write_bytesview(data)
+    joined.write_bytesview(data)
     let raw = joined.to_bytes()
     let format : PcmFormat = {
       sample_rate: 48000,
@@ -110,9 +110,9 @@ test "full container loads retain arbitrary input splits and reject partial EOF 
 test "full WAV8 loads remain unsigned while raw8 remains signed" {
   let data = b"\x00\x7f\x80\x81\xff"
   let out = @buffer.Buffer()
-  out.write_bytes(b"RIFF")
+  out.write_bytesview(b"RIFF")
   out.write_int_le(42)
-  out.write_bytes(b"WAVEfmt ")
+  out.write_bytesview(b"WAVEfmt ")
   out.write_int_le(16)
   out.write_uint16_le(1)
   out.write_uint16_le(1)
@@ -120,9 +120,9 @@ test "full WAV8 loads remain unsigned while raw8 remains signed" {
   out.write_int_le(48000)
   out.write_uint16_le(1)
   out.write_uint16_le(8)
-  out.write_bytes(b"data")
+  out.write_bytesview(b"data")
   out.write_int_le(5)
-  out.write_bytes(data)
+  out.write_bytesview(data)
   out.write_byte(0)
   for cut in [1, 2, 7, 65536] {
     let (_, _, wav_values) = pcm_test_collect(

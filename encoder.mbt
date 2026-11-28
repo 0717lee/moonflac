@@ -204,8 +204,10 @@ pub fn Encoder::next(self : Encoder) -> EncodeEvent raise FlacError {
   if self.failed is Some(error) {
     raise error
   }
-  self.read_encoded() catch {
-    error => {
+  let outcome = Ok(self.read_encoded()) catch { error => Err(error) }
+  match outcome {
+    Ok(event) => event
+    Err(error) => {
       self.failed = Some(error)
       raise error
     }
@@ -284,9 +286,9 @@ fn Encoder::read_encoded(self : Encoder) -> EncodeEvent raise FlacError {
   if self.seek_cursor < self.seek_points.length() {
     let point = self.seek_points[self.seek_cursor]
     if point.sample != 0xffffffffffffffffUL &&
-      point.sample < (self.samples + count.to_int64()).to_uint64() {
-      if point.sample != self.samples.to_uint64() ||
-        point.offset != self.frame_offset.to_uint64() ||
+      point.sample < (self.samples + count.to_int64()).reinterpret_as_uint64() {
+      if point.sample != self.samples.reinterpret_as_uint64() ||
+        point.offset != self.frame_offset.reinterpret_as_uint64() ||
         point.samples != count {
         raise Invalid(
           self.samples,
@@ -363,9 +365,9 @@ pub fn encode_pcm(
         }
       EncoderDone(summary) => {
         let out = @buffer.Buffer()
-        out.write_bytes(summary.final_header)
+        out.write_bytesview(summary.final_header)
         for i in 1..<chunks.length() {
-          out.write_bytes(chunks[i])
+          out.write_bytesview(chunks[i])
         }
         return out.to_bytes()
       }

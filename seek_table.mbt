@@ -28,7 +28,7 @@ pub fn decode_seektable_range(
   }
   let mut chosen : SeekPoint? = None
   for point in metadata.seek_points {
-    if point.sample <= start.to_uint64() {
+    if point.sample <= start.reinterpret_as_uint64() {
       chosen = Some(point)
     } else {
       break

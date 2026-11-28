@@ -33,7 +33,7 @@ pub fn parse_metadata(Bytes, max_metadata_bytes? : Int32) -> (Metadata, Int32) r
 pub fn wav_header(StreamInfo, Int64, channel_mask? : UInt32, rf64? : Bool) -> Bytes raise FlacError
 
 // Errors
-#derive(Show)
+#derive(@debug.Debug)
 pub suberror FlacError {
   NeedMore
   Invalid(Int64, String)
@@ -41,6 +41,7 @@ pub suberror FlacError {
 }
 pub fn FlacError::output(Self, &Logger) -> Unit
 pub fn FlacError::to_string(Self) -> String
+pub impl Show for FlacError
 
 // Types and methods
 pub(all) struct Audio {
@@ -49,13 +50,13 @@ pub(all) struct Audio {
   integrity : Integrity
 }
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct CueIndex {
   offset : UInt64
   number : Int32
 }
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct CueSheet {
   catalog : Bytes
   lead_in : UInt64
@@ -63,7 +64,7 @@ pub(all) struct CueSheet {
   tracks : Array[CueTrack]
 }
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct CueTrack {
   offset : UInt64
   number : Int32
@@ -126,7 +127,7 @@ pub(all) struct EncoderSummary {
   final_header : Bytes
 }
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct Frame {
   sample_number : Int64
   number : Int64
@@ -146,16 +147,15 @@ pub(all) struct FrameLocation {
   bytes : Int32
 }
 
-#derive(Eq, Show, @debug.Debug)
+#derive(Eq, @debug.Debug)
 pub(all) enum Integrity {
   Md5Verified
   Md5Unavailable
   FrameCrcOnly
 }
+pub impl Show for Integrity
 
-type Md5
-
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct Metadata {
   info : StreamInfo
   blocks : Array[MetadataBlock]
@@ -168,7 +168,7 @@ pub(all) struct Metadata {
 pub fn Metadata::channel_mask(Self) -> UInt32? raise FlacError
 pub fn Metadata::effective_channel_mask(Self) -> UInt32 raise FlacError
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct MetadataBlock {
   kind : Int32
   data : Bytes
@@ -228,7 +228,7 @@ pub(all) enum PcmInputEvent {
   PcmInputDone
 }
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct Picture {
   kind : UInt32
   media_type : String
@@ -263,14 +263,14 @@ pub(all) struct SeekIndex {
 }
 pub fn SeekIndex::locate(Self, Int64) -> FrameLocation?
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct SeekPoint {
   sample : UInt64
   offset : UInt64
   samples : Int32
 }
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct StreamInfo {
   min_block_size : Int32
   max_block_size : Int32
@@ -283,7 +283,7 @@ pub(all) struct StreamInfo {
   md5 : Bytes
 }
 
-#derive(Show)
+#derive(@debug.Debug)
 pub(all) struct VorbisComment {
   vendor : String
   entries : Array[String]

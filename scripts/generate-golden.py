@@ -9,12 +9,15 @@ from validate import CACHE, ROOT, LibFLAC, library, packed
 ref=LibFLAC(library(None))
 dest=ROOT/"validation/golden"
 dest.mkdir(parents=True,exist_ok=True)
-(dest/"moon.pkg").write_text('import { "0717lee/moonflac" @flac }\n',encoding="utf-8")
+(dest/"moon.pkg").write_text('import {\n  "0717lee/moonflac" @flac,\n} for "test"\n',encoding="utf-8")
 sources=[CACHE/"generated"/f"depth-{b:02}-channels-{c}.flac" for b,c in [(4,1),(8,2),(12,3),(16,4),(20,5),(24,6),(28,7),(32,8)]]
 sources += [CACHE/"generated/ogg-16-2.oga"]
 sources += [next((CACHE/"flac-test-files/subset").glob(f"{n:02} - *.flac")) for n in (12,16,31,61,64)]
 manifest=[]
-def literal(data): return 'b"'+''.join(f'\\x{x:02x}' for x in data)+'"'
+def literal(data):
+    chunks=[''.join(f'\\x{x:02x}' for x in data[i:i+48]) for i in range(0,len(data),48)]
+    if len(chunks)==1: return 'b"'+chunks[0]+'"'
+    return '(\n'+' +\n'.join('    b"'+c+'"' for c in chunks)+'\n  )'
 for index,source in enumerate(sources):
     data=source.read_bytes()
     source_sha256=hashlib.sha256(data).hexdigest()

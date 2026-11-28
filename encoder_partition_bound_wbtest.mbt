@@ -137,3 +137,83 @@ test "adaptive partition bound randomized widths warmups and method boundaries" 
     }
   }
 }
+
+///|
+fn encoder_adaptive_residual_plan(
+  samples : Array[Int64],
+  predictor : Int32,
+  workspace~ : Array[Array[Int64]] = [],
+) -> EncoderResidual {
+  let coarse = encoder_residual_plan(
+    samples,
+    predictor,
+    ENCODER_PARTITION_CAP,
+    workspace~,
+  )
+  let size = samples.length()
+  let mut maximum = ENCODER_PARTITION_CAP
+  while maximum < 15 &&
+        size % (1 << (maximum + 1)) == 0 &&
+        size >> (maximum + 1) > predictor {
+    maximum += 1
+  }
+  if maximum == ENCODER_PARTITION_CAP ||
+    6L + (4L << (ENCODER_PARTITION_CAP + 1)) >= coarse.bits {
+    return coarse
+  }
+  let widths = Array::makei(size, i => {
+    if i < predictor {
+      0
+    } else {
+      encoder_signed_width(samples[i])
+    }
+  })
+  for order = maximum; order > ENCODER_PARTITION_CAP; order = order - 1 {
+    let lower = encoder_partition_lower_bound(
+      widths,
+      predictor,
+      order,
+      stop_at=coarse.bits,
+    )
+    if lower < coarse.bits {
+      // Higher levels already have a proven lower bound >= the coarse plan.
+      // Exact search through this level therefore retains the global optimum.
+      // A tie at a higher level cannot replace the earlier, lower-order plan.
+      return encoder_residual_plan(samples, predictor, order, workspace~)
+    }
+  }
+  coarse
+}
+
+///|
+fn encoder_partition_lower_bound(
+  widths : Array[Int32],
+  predictor : Int32,
+  order : Int32,
+  stop_at~ : Int64 = 9223372036854775807L,
+) -> Int64 {
+  let step = widths.length() >> order
+  let mut total = 6L
+  for p = 0; p < 1 << order; p = p + 1 {
+    let start = if p == 0 { predictor } else { p * step }
+    let end = (p + 1) * step
+    let mut rice = 4
+    let mut maximum = 0
+    for i = start; i < end; i = i + 1 {
+      let width = widths[i]
+      rice += width + 1
+      if width > maximum {
+        maximum = width
+      }
+    }
+    // For folded u, (u >> k) + k + 1 >= bit_length(u) + 1.
+    // Signed width equals that bit length, including width zero for zero.
+    // Four parameter bits underestimates Rice2's five, so this also bounds it.
+    let escaped = 9 + (end - start) * maximum
+    total += (if maximum <= 31 && escaped < rice { escaped } else { rice }).to_int64()
+    if total >= stop_at {
+      return total
+    }
+  }
+  total
+}

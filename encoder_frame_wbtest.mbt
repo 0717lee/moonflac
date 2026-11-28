@@ -509,7 +509,7 @@ test "encoder naturally selects left side right side and mid side" {
   let mut state = 12345U
   let noise = Array::makei(256, _ => {
     state = state * 1664525U + 1013904223U
-    ((state >> 18).to_int() - 8192) * 4
+    ((state >> 18).reinterpret_as_int() - 8192) * 4
   })
   let format : PcmFormat = {
     sample_rate: 48000,
@@ -527,5 +527,56 @@ test "encoder naturally selects left side right side and mid side" {
     }
     let bytes = encode_frame(format, [left, right], 0L, false, 1)
     assert_eq(bytes[3].to_int() >> 4, assignment)
+  }
+}
+
+///|
+fn encode_frame(
+  format : PcmFormat,
+  planes : Array[Array[Int32]],
+  number : Int64,
+  variable_block : Bool,
+  effort : Int32,
+) -> Bytes raise FlacError {
+  if format.channels < 1 ||
+    format.channels > 8 ||
+    format.bits_per_sample < 4 ||
+    format.bits_per_sample > 32 ||
+    format.sample_rate < 0 ||
+    format.sample_rate > 1048575 ||
+    planes.length() != format.channels ||
+    effort < 0 ||
+    effort > 8 {
+    raise Invalid(0L, "invalid encoder frame format or effort")
+  }
+  let size = planes[0].length()
+  if size < 1 || size > 65535 {
+    raise Invalid(0L, "encoder block size must be 1..65535")
+  }
+  let bound = 1L << (format.bits_per_sample - 1)
+  for plane in planes {
+    if plane.length() != size {
+      raise Invalid(0L, "encoder channel lengths differ")
+    }
+    for value in plane {
+      if value.to_int64() < -bound || value.to_int64() >= bound {
+        raise Invalid(0L, "input PCM exceeds declared bit depth")
+      }
+    }
+  }
+  encode_frame_validated(format, planes, number, variable_block, effort)
+}
+
+///|
+fn encoder_predictor(
+  samples : Array[Int64],
+  coefficients : Array[Int64],
+  shift : Int32,
+) -> Array[Int64]? {
+  let residual = Array::make(samples.length(), 0L)
+  if encoder_predict_into(samples, coefficients, shift, residual) {
+    Some(residual)
+  } else {
+    None
   }
 }

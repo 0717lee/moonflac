@@ -25,7 +25,7 @@ fn stream(
   let mut ended = false
   while true {
     match encoder.next() {
-      EncodedBytes(bytes) => output.write_bytes(bytes)
+      EncodedBytes(bytes) => output.write_bytesview(bytes)
       EncoderDone(_) => break
       NeedPcm =>
         if pos == pcm.length() {

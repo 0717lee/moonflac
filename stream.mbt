@@ -1,10 +1,20 @@
 ///|
 /// STREAMINFO MD5 validation at the end of a complete stream.
-#derive(Show, Debug, Eq)
+#derive(Debug, Eq)
 pub(all) enum Integrity {
   Md5Verified
   Md5Unavailable
   FrameCrcOnly
+}
+
+///|
+/// Human-readable status for CLI and browser surfaces.
+pub impl Show for Integrity with fn to_string(self) {
+  match self {
+    Md5Verified => "Md5Verified"
+    Md5Unavailable => "Md5Unavailable"
+    FrameCrcOnly => "FrameCrcOnly"
+  }
 }
 
 ///|
@@ -107,8 +117,10 @@ pub fn Decoder::peak_compressed_storage_bytes(self : Decoder) -> Int64 {
 ///|
 /// Supply input and return the number of bytes accepted. Input is copied.
 pub fn Decoder::push(self : Decoder, input : Bytes) -> Int32 raise FlacError {
-  self.push_input(input) catch {
-    error => {
+  let outcome = Ok(self.push_input(input)) catch { error => Err(error) }
+  match outcome {
+    Ok(count) => count
+    Err(error) => {
       self.failed = Some(error)
       raise error
     }
@@ -187,8 +199,10 @@ pub fn Decoder::finish(self : Decoder) -> Unit raise FlacError {
   }
   if !self.ended {
     if self.ogg is Some(ogg) {
-      ogg.finish() catch {
-        error => {
+      let outcome = Ok(ogg.finish()) catch { error => Err(error) }
+      match outcome {
+        Ok(_) => ()
+        Err(error) => {
           self.failed = Some(error)
           raise error
         }

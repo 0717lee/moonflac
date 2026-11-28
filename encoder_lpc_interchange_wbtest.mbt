@@ -110,7 +110,7 @@ test "LPC interchange matches sequential reference at every order and small boun
         }),
         order,
       )
-      let mut state = 9639U + size.to_uint()
+      let mut state = 9639U + size.reinterpret_as_uint()
       let noise = Array::makei(size, _ => {
         state = state * 1664525U + 1013904223U
         state.to_int64() * 2L - 4294967295L
@@ -124,7 +124,7 @@ test "LPC interchange matches sequential reference at every order and small boun
 test "LPC interchange matches wide random and impulse inputs through maximal blocks" {
   for size in [511, 512, 1023, 1024, 4095, 4096, 4097, 32768, 65535] {
     for order in [1, 2, 8, 16, 24, 32] {
-      let mut state = 1337U + size.to_uint()
+      let mut state = 1337U + size.reinterpret_as_uint()
       let noise = Array::makei(size, _ => {
         state = state * 1664525U + 1013904223U
         state.to_int64() - 2147483648L

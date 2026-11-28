@@ -108,7 +108,7 @@ test "Double tiled LPC randomized coefficients tile edges and fallback" {
       size in [
         0, 1, 31, 32, 33, 127, 128, 129, 159, 160, 161, 255, 256, 257, 4096,
       ] {
-      let mut state = 9639U + size.to_uint()
+      let mut state = 9639U + size.reinterpret_as_uint()
       let samples = Array::makei(size, _ => {
         state = state * 1664525U + 1013904223U
         ((state.to_int64() * 2L) & mask) + low

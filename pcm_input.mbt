@@ -586,8 +586,10 @@ pub fn PcmInput::next(self : PcmInput) -> PcmInputEvent raise FlacError {
   if self.failed is Some(error) {
     raise error
   }
-  self.step() catch {
-    error => {
+  let outcome = Ok(self.step()) catch { error => Err(error) }
+  match outcome {
+    Ok(event) => event
+    Err(error) => {
       self.failed = Some(error)
       raise error
     }

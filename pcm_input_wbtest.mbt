@@ -46,18 +46,18 @@ fn pcm_test_collect(
 fn pcm_test_wav(bits : Int32, rf64 : Bool) -> Bytes {
   let out = @buffer.Buffer()
   let pcm : Array[Int32] = [-1, 0, 1]
-  out.write_bytes(if rf64 { b"RF64" } else { b"RIFF" })
+  out.write_bytesview(if rf64 { b"RF64" } else { b"RIFF" })
   out.write_uint_le(if rf64 { 0xffffffffU } else { 72U })
-  out.write_bytes(b"WAVE")
+  out.write_bytesview(b"WAVE")
   if rf64 {
-    out.write_bytes(b"ds64")
+    out.write_bytesview(b"ds64")
     out.write_int_le(28)
     out.write_int64_le(108L)
     out.write_int64_le(12L)
     out.write_int64_le(3L)
     out.write_int_le(0)
   }
-  out.write_bytes(b"fmt ")
+  out.write_bytesview(b"fmt ")
   out.write_int_le(40)
   out.write_uint16_le(65534)
   out.write_uint16_le(1)
@@ -68,10 +68,10 @@ fn pcm_test_wav(bits : Int32, rf64 : Bool) -> Bytes {
   out.write_uint16_le(22)
   out.write_uint16_le(bits.to_uint16())
   out.write_uint_le(0)
-  out.write_bytes(
+  out.write_bytesview(
     b"\x01\x00\x00\x00\x00\x00\x10\x00\x80\x00\x00\xaa\x00\x38\x9b\x71",
   )
-  out.write_bytes(b"data")
+  out.write_bytesview(b"data")
   out.write_uint_le(if rf64 { 0xffffffffU } else { 12U })
   for sample in pcm {
     out.write_int_le(sample << (32 - bits))
@@ -152,12 +152,12 @@ test "WAV rejects low padding bits and truncation with sticky errors" {
 test "WAV skips large unknown chunks within bounded staging" {
   let valid = pcm_test_wav(32, false)
   let out = @buffer.Buffer()
-  out.write_bytes(b"RIFF")
+  out.write_bytesview(b"RIFF")
   out.write_int_le(72 + 8 + 131072)
-  out.write_bytes(b"WAVEJUNK")
+  out.write_bytesview(b"WAVEJUNK")
   out.write_int_le(131072)
-  out.write_bytes(Bytes::make(131072, 42))
-  out.write_bytes(valid[12:])
+  out.write_bytesview(Bytes::make(131072, 42))
+  out.write_bytesview(valid[12:])
   let reader = PcmInput::wav()
   let (_, _, values) = pcm_test_collect(reader, out.to_bytes(), 65536)
   assert_eq(values, [-1, 0, 1])
@@ -167,15 +167,15 @@ test "WAV skips large unknown chunks within bounded staging" {
 ///|
 test "RF64 preserves 64-bit unknown chunk sizes without allocating the payload" {
   let out = @buffer.Buffer()
-  out.write_bytes(b"RF64\xff\xff\xff\xffWAVEds64")
+  out.write_bytesview(b"RF64\xff\xff\xff\xffWAVEds64")
   out.write_int_le(40)
   out.write_int64_le(4294967400L)
   out.write_int64_le(0L)
   out.write_int64_le(0L)
   out.write_int_le(1)
-  out.write_bytes(b"JUNK")
+  out.write_bytesview(b"JUNK")
   out.write_int64_le(4294967297L)
-  out.write_bytes(b"JUNK\xff\xff\xff\xff")
+  out.write_bytesview(b"JUNK\xff\xff\xff\xff")
   let reader = PcmInput::wav()
   ignore(reader.push(out.to_bytes()))
   assert_true(reader.next() is PcmNeedInput)

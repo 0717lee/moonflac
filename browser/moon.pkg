@@ -1,13 +1,18 @@
 import {
   "0717lee/moonflac",
+}
+
+#cfg(target = "wasm-gc")
+import {
   "moonbitlang/core/encoding/utf8",
 }
 
+pkgtype(kind: "foreign_library")
+
 options(
-  supported_targets: [ "js", "wasm-gc" ],
+  supported_targets: "+js+wasm-gc",
   targets: { "bridge_js.mbt": [ "js" ], "bridge_wasm.mbt": [ "wasm-gc" ] },
   link: {
-    "js": { "exports": [ "decode_browser", "export_browser" ], "format": "esm" },
-    "wasm-gc": { "exports": [ "run_decode", "run_export" ] },
+    "js": { "format": "esm" },
   },
 )

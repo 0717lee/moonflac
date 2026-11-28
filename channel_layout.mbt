@@ -53,7 +53,7 @@ pub fn Metadata::channel_mask(self : Metadata) -> UInt32? raise FlacError {
       if value > 0x0fffffffU {
         raise Invalid(position, "channel mask exceeds unsigned 32-bit range")
       }
-      value = (value << 4) | digit.to_uint()
+      value = (value << 4) | digit.reinterpret_as_uint()
     }
     if mask is Some(previous) {
       if previous != value {

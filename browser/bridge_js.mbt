@@ -35,3 +35,15 @@ extern "js" fn wav_data(value : Bytes) -> Unit =
 ///|
 extern "js" fn speaker_layout(mask : UInt32, explicit : Bool) -> Unit =
   #| (mask, explicit) => globalThis.moonflacLayout(mask, explicit)
+
+///|
+#export_name("decode_browser")
+pub fn js_decode(data : Bytes) -> Unit {
+  decode_browser(data)
+}
+
+///|
+#export_name("export_browser")
+pub fn js_export(data : Bytes) -> Unit {
+  export_browser(data)
+}

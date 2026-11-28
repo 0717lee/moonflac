@@ -65,11 +65,13 @@ fn wav_data(value : Bytes) -> Unit {
 }
 
 ///|
+#export_name("run_decode")
 pub fn run_decode() -> Unit {
   decode_browser(Bytes::makei(input_length(), i => input_byte(i).to_byte()))
 }
 
 ///|
+#export_name("run_export")
 pub fn run_export() -> Unit {
   export_browser(Bytes::makei(input_length(), i => input_byte(i).to_byte()))
 }

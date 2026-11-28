@@ -27,11 +27,11 @@ fn encstream_collect(
         let raw = @buffer.Buffer()
         let patched = @buffer.Buffer()
         assert_eq(summary.final_header.length(), chunks[0].length())
-        patched.write_bytes(summary.final_header)
+        patched.write_bytesview(summary.final_header)
         for i in 0..<chunks.length() {
-          raw.write_bytes(chunks[i])
+          raw.write_bytesview(chunks[i])
           if i > 0 {
-            patched.write_bytes(chunks[i])
+            patched.write_bytesview(chunks[i])
           }
         }
         match encoder.next() {

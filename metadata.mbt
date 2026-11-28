@@ -1,13 +1,13 @@
 ///|
 /// Raw blocks are retained, including reserved types 7..126.
-#derive(Show)
+#derive(Debug)
 pub(all) struct MetadataBlock {
   kind : Int32
   data : Bytes
 }
 
 ///|
-#derive(Show)
+#derive(Debug)
 pub(all) struct SeekPoint {
   sample : UInt64
   offset : UInt64
@@ -15,21 +15,21 @@ pub(all) struct SeekPoint {
 }
 
 ///|
-#derive(Show)
+#derive(Debug)
 pub(all) struct VorbisComment {
   vendor : String
   entries : Array[String]
 }
 
 ///|
-#derive(Show)
+#derive(Debug)
 pub(all) struct CueIndex {
   offset : UInt64
   number : Int32
 }
 
 ///|
-#derive(Show)
+#derive(Debug)
 pub(all) struct CueTrack {
   offset : UInt64
   number : Int32
@@ -40,7 +40,7 @@ pub(all) struct CueTrack {
 }
 
 ///|
-#derive(Show)
+#derive(Debug)
 pub(all) struct CueSheet {
   catalog : Bytes
   lead_in : UInt64
@@ -49,7 +49,7 @@ pub(all) struct CueSheet {
 }
 
 ///|
-#derive(Show)
+#derive(Debug)
 pub(all) struct Picture {
   kind : UInt32
   media_type : String
@@ -62,7 +62,7 @@ pub(all) struct Picture {
 }
 
 ///|
-#derive(Show)
+#derive(Debug)
 pub(all) struct Metadata {
   info : StreamInfo
   blocks : Array[MetadataBlock]
@@ -95,7 +95,7 @@ fn MetaReader::take(r : MetaReader, n : Int32) -> Bytes raise FlacError {
     result[i] = r.data[r.pos + i]
   }
   r.pos += n
-  Bytes::from_fixedarray(result)
+  Bytes::from_array(result)
 }
 
 ///|
@@ -297,7 +297,7 @@ pub fn parse_metadata(
         let sample_rate = (packed >> 44).to_int()
         let channels = ((packed >> 41) & 7UL).to_int() + 1
         let bits_per_sample = ((packed >> 36) & 31UL).to_int() + 1
-        let total_samples = (packed & 0xfffffffffUL).to_int64()
+        let total_samples = (packed & 0xfffffffffUL).reinterpret_as_int64()
         let md5 = r.take(16)
         if min_block_size < 16 ||
           max_block_size < min_block_size ||
@@ -443,8 +443,8 @@ pub fn VorbisComment::values(
   let result = []
   for entry in self.entries {
     if entry.split_once("=") is Some((key, value)) {
-      if key.to_string().to_lower() == name.to_lower() {
-        result.push(value.to_string())
+      if key.to_owned().to_lower() == name.to_lower() {
+        result.push(value.to_owned())
       }
     }
   }

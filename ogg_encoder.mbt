@@ -160,7 +160,7 @@ fn ogg_vorbis_comment(vendor : String) -> Bytes {
     (payload_length >> 8).to_byte(),
     payload_length.to_byte(),
   ]
-  ogg_write_le32(block, text.length().to_uint())
+  ogg_write_le32(block, text.length().reinterpret_as_uint())
   for byte in text {
     block.push(byte)
   }
@@ -257,7 +257,7 @@ pub fn ogg_from_flac(
     }
     let packet = native[start:end].to_owned()
     let eos = i == index.frames.length() - 1
-    let granule = (frame.sample + frame.samples.to_int64()).to_uint64()
+    let granule = (frame.sample + frame.samples.to_int64()).reinterpret_as_uint64()
     let (frame_pages, next) = ogg_packet_pages(
       packet, serial, sequence, granule, eos,
     )
@@ -268,7 +268,7 @@ pub fn ogg_from_flac(
   }
   let out = @buffer.Buffer()
   for page in pages {
-    out.write_bytes(page)
+    out.write_bytesview(page)
   }
   out.to_bytes()
 }
