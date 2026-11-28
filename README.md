@@ -30,7 +30,7 @@ Install the [MoonBit toolchain](https://www.moonbitlang.com/download/), a native
 Install the published library:
 
 ```sh
-moon add 0717lee/moonflac@0.2.3
+moon add 0717lee/moonflac@0.2.4
 ```
 
 Mooncakes: <https://mooncakes.io/docs/0717lee/moonflac>

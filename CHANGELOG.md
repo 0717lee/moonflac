@@ -1,11 +1,31 @@
 # Changelog
 
-## Unreleased
+## 0.2.4 — 2026-11-28
 
 ### Changed
 
 - Upgrade CI and development to the official MoonBit `1.0.0-rc1+3c0520448` toolchain (`moon` / `moonrun 0.1.20261126`).
-- No source changes required: `moon fmt --check` passes, all three targets keep 197/197 tests, and `pkg.generated.mbti` is unchanged.
+- Resolve every `moon check --deny-warn` diagnostic: migrate the reinterpret
+  casts, `Buffer::write_bytes`, `StringView::to_string` and
+  `Bytes::from_fixedarray` to their current APIs; derive `Debug` for the public
+  value types while keeping a hand-written `Show` for `FlacError` and
+  `Integrity`, so user-facing error and status text is unchanged.
+- Replace the five catch-all cleanup handlers with explicit error capture so the
+  sticky decoder error is recorded outside the handler.
+- Move reference helpers used only by white-box tests into `_wbtest.mbt`, wrap
+  the over-long golden-test byte literals, and update the golden generator to
+  emit the same layout with its black-box imports marked `for "test"`.
+- Move the browser exports from `link.*.exports` to `#export_name` wrappers and
+  declare the package a foreign library. The emitted JS and wasm export sets are
+  unchanged.
+- Regenerate the committed public interface.
+
+### Validation
+
+- Three-backend `moon check --deny-warn`: 0 warnings; 197/197 tests pass on
+  native, JavaScript and wasm-gc.
+- The browser playground builds; JS exports stay `decode_browser` /
+  `export_browser` and wasm-gc exports stay `run_decode` / `run_export`.
 
 ## 0.2.3 — 2026-11-18
 
